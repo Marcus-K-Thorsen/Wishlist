@@ -27,7 +27,7 @@ CREATE TABLE wishes
     id_WL   int,
     titel_W varchar(50) NOT NULL,
     descr_W varchar(200),
-    price   decimal(10, 2),
+    price   decimal(11, 2),
     link    varchar(200),
     PRIMARY KEY (id_W),
     FOREIGN KEY (id_WL) REFERENCES wishlists (id_WL)

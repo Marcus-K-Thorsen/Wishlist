@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value = {"/login"})
+@RequestMapping(value = {"/login-side"})
 public class LoginController {
   @GetMapping(value = {""})
   public ModelAndView login() {
     ModelAndView modelAndView = new ModelAndView();
-    modelAndView.setViewName("login");
+    modelAndView.setViewName("login-side");
     return modelAndView;
   }
 }

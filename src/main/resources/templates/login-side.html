@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Ønskeliste Login På En Konto</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+
+<section class="side_banner">
+    Login-Side Banner
+</section>
+
+<section class="side_info">
+    <p>
+        Noget introducerende tekst omkring denne side: Login siden til Digital Ønskeliste Siden, som dette er stedet man logger ind på en allerede skabt konto på siden.
+    </p>
+    <p>
+        Informativ tekst omkring hvad man kan gøre på login-siden: Indtast dine informationer (brugernavn/email "ikke bestemt endnu" et kodeord til din bruger). Noget omkring de restriktioner der er for brugerens input, som at det skal være et brugernavn der eksisterer, der skal være et kodeord, som passer til det den bruger. Når input er indtastet tryk på om du vil logge ind på den bruger som er indtastet eller om du vil gå tilbage til forsiden:
+    </p>
+</section>
+
+<form method="POST" action="/login" class="input-felter">
+
+    <label>
+        <input type="text" name="brugernavn" placeholder="Indtast Brugernavn/Email..." class="input-felt">
+    </label>
+
+    <label>
+        <input type="text" name="kodeord" placeholder="Indtast Kodeord..." class="input-felt">
+    </label>
+
+    <section class="choices">
+        <a href="/" class="button åben-side">
+            Gå til forsiden<br>(åbner Forsiden)
+        </a>
+
+
+        <button type="submit" class="button åben-side-med-input">
+            Login på bruger<br>(åbner Konto-Side)
+        </button>
+    </section>
+</form>
+</body>
+</html>
