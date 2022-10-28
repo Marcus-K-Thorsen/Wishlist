@@ -1,8 +1,11 @@
 package com.example.digitalwishlist.model.wishlist;
 
 import com.example.digitalwishlist.model.user.User;
+import com.example.digitalwishlist.model.wish.Wish;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "wishlists")
@@ -11,14 +14,14 @@ public class Wishlist {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(unique = true)
   private int id;
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "email_user", referencedColumnName = "email")
+  @ManyToOne
+  @JoinColumn(name = "email")
   private User user;
-  private String titel;
+  private String title;
   private String descr;
-
-  private int amountOfWishes; //TODO: måske bør dette være en List<Wish>?
-
+  @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Set<Wish> wishes = new HashSet<>();
+  private int amount = wishes.size();
 
   public int getId() {
     return id;
@@ -36,12 +39,12 @@ public class Wishlist {
     this.user = user;
   }
 
-  public String getTitel() {
-    return titel;
+  public String getTitle() {
+    return title;
   }
 
-  public void setTitel(String titel) {
-    this.titel = titel;
+  public void setTitle(String titel) {
+    this.title = titel;
   }
 
   public String getDescr() {
@@ -52,22 +55,11 @@ public class Wishlist {
     this.descr = descr;
   }
 
-  public int getAmountOfWishes() {
-    return amountOfWishes;
+  public int getAmount() {
+    return amount;
   }
 
-  public void setAmountOfWishes(int amountOfWishes) {
-    this.amountOfWishes = amountOfWishes;
-  }
-
-  @Override
-  public String toString() {
-    return "Wishlist{" +
-        "id=" + id +
-        ", user=" + user +
-        ", titel='" + titel + '\'' +
-        ", descr='" + descr + '\'' +
-        ", amountOfWishes=" + amountOfWishes +
-        '}';
+  public void setAmount(int amount) {
+    this.amount = amount;
   }
 }

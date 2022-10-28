@@ -1,9 +1,13 @@
 body {
     margin: 0;
+    background-image: url("https://images-bonnier.imgix.net/files/ill/production/2019/07/10091229/ill_hvorfor_er_himlen_blacc8a.png?w=2618&q=60fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&fit=crop&crop=focalpoint");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 8px;
 }
 
 .sky-background {
-/*    Image bør flyttes til body før at den gælder for hele baggrunden*/
+/*    TODO Image flyttet til body for at den gælder for hele baggrunden. Indtil videre gælder det kun for index*/
     background-image: url("https://images-bonnier.imgix.net/files/ill/production/2019/07/10091229/ill_hvorfor_er_himlen_blacc8a.png?w=2618&q=60fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&fit=crop&crop=focalpoint");
     background-size: cover;
     background-repeat: no-repeat;
@@ -18,7 +22,6 @@ body {
 }
 
  multiply  screen  overlay  darken  lighten  color-dodge color-burn  difference  exclusion  hue  saturation  color */
-
 
 .side_banner {
     text-align: center;

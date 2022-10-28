@@ -14,29 +14,34 @@ class DigitalWishlistApplicationTests {
   @Autowired
   private UserDao userDao;
 
-/*  @Test*/
+/*  @Test
   void addUserTest() {
     User user = new User();
-    user.setEmail("user02@kea.com");
-    user.setGivenName("Rachel");
+    user.setEmail("user01@kea.com");
+    user.setGivenName("John");
     user.setLastName("Johnson");
-    user.setPassword("RachelGirl123");
-    user.setAmountOfWishlists(1);
-    userDao.save(user);
-  }
+    user.setPassword("JohnnyBoy123");
+    UserDao.save(user);
+  }*/
 
-/*  @Test*/
+/*  @Test
   void getAllUsersAndDeleteThem() {
     List<User> users = userDao.getAllUsers();
     System.out.println(users);
     for (User user : users) {
       userDao.delete(user);
     }
-  }
-@Test
+  }*/
+/*@Test
   void deleteUserById () {
     userDao.delete("user02@kea.com");
-  }
+  }*/
 
-  //void contextLoads()
+  @Test
+  void changePasswordById(){
+    userDao.updatePassword("user01@kea.com","JohnJohn");
+  }
+/*@Test
+  void contextLoads() {
+  }*/
 }

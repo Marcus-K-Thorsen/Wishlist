@@ -11,10 +11,10 @@ public class Wish {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(unique = true)
   private int id;
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "id_WL", referencedColumnName = "id")
+  @ManyToOne
+  @JoinColumn(name = "id_WL")
   private Wishlist wishlist;
-  private String titel;
+  private String title;
   private String descr;
   private double price;
   private String link;
@@ -35,12 +35,12 @@ public class Wish {
     this.wishlist = wishlist;
   }
 
-  public String getTitel() {
-    return titel;
+  public String getTitle() {
+    return title;
   }
 
-  public void setTitel(String titel) {
-    this.titel = titel;
+  public void setTitle(String titel) {
+    this.title = titel;
   }
 
   public String getDescr() {
@@ -65,17 +65,5 @@ public class Wish {
 
   public void setLink(String link) {
     this.link = link;
-  }
-
-  @Override
-  public String toString() {
-    return "Wish{" +
-        "id=" + id +
-        ", wishlist=" + wishlist +
-        ", titel='" + titel + '\'' +
-        ", descr='" + descr + '\'' +
-        ", price=" + price +
-        ", link='" + link + '\'' +
-        '}';
   }
 }
