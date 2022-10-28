@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Ønskeliste En Logget Ind Konto Skaber Et Ønske For En Ønskeseddel</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="sky-background">
+
+    <section class="side_banner">
+        Skab-Ønske-Side Banner
+    </section>
+
+    <section class="side_info">
+        <p>
+            Noget introducerende tekst omkring denne side: Skab et ønske for en ønskeseddel på Digital Ønskeliste Siden,
+            som dette er stedet man skaber sig et ønske for en ønskeseddel til en konto der allerede er blevet logget
+            ind på. Brugeren (brugerens navn) <span class="inline" th:text="${user.getName()}"></span> er ved at lave et
+            nyt ønske for ønskesedlen (sedlens titel)<span class="inline" th:text="${wishlist.getTitle()}"></span>.
+        </p>
+
+        <p>
+            Informativ tekst omkring hvad man kan gøre på skab-ønske-siden: En bruger påbegynder et ønske til en
+            specifik seddel de har skabt. De kan indføre en titel (obligatorisk), (valgfrit) en pris til ønsket, en
+            beskrivelse og et link til hvor man kan finde det ønskede produkt. Derefter kan de trykke skab ønske for at
+            sætte det på ønskesedlen eller trykke fortryd ønske for at kommer tilbage til den ønskeseddel man er i:
+        </p>
+    </section>
+
+    <form method="POST" action="/skab-ønske" class="input-felter" id="skab">
+
+        <label>
+            <input type="text" name="ønsketitel" placeholder="Indtast titlen på ønsket..." class="input-felt"
+                   form="skab" maxlength="50" required>
+        </label>
+
+        <label>
+            <input type="number" step="0.01" pattern="[0-9]{0,11}" max="99999999999" name="ønskeprisen"
+                   placeholder="Indtast en pris for ønsket..." class="input-felt number-felt" form="skab">
+        </label>
+
+        <label>
+            <textarea rows="5" cols="30" maxlength="200" name="ønskebeskrivelse"
+                      placeholder="Indtast beskrivelsen på ønsket..." class="big-input-felt input-felt"
+                      form="skab"></textarea>
+        </label>
+
+        <label>
+            <input type="url" name="ønskelink" placeholder="Indtast et link for hvor man kan finde ønsket..."
+                   class="input-felt" form="skab" maxlength="200">
+        </label>
+
+        <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn()}" form="skab">
+        <input type="hidden" name="wishlistid" th:value="${wishlist.getId()}" form="skab">
+
+        <form method="POST" action="/fortryd-ønske" id="fortryd">
+            <section class="choices">
+                <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn()}" form="fortryd">
+                <input type="hidden" name="wishlistid" th:value="${wishlist.getId()}" form="fortryd">
+                <button type="submit" class="button åben-side" form="fortryd">
+                    Fortryd ønske<br>(åbner Se-Ønskeseddel-Side)
+                </button>
+
+
+                <button type="submit" class="button åben-side-med-input" form="skab">
+                    Skab ønskesedlen<br>(åbner Konto-Side)
+                </button>
+            </section>
+        </form>
+    </form>
+
+</div>
+</body>
+</html>
