@@ -1,5 +1,7 @@
-package com.example.digitalwishlist.model.wish;
+package com.example.digitalwishlist.service;
 
+import com.example.digitalwishlist.model.Wish;
+import com.example.digitalwishlist.repository.WishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
@@ -9,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class WishDao {
+public class WishService {
 
   private static WishRepository repository = null;
 
   @Autowired
-  public WishDao(WishRepository repository) {
-    WishDao.repository = repository;
+  public WishService(WishRepository repository) {
+    WishService.repository = repository;
   }
 
   public static void save(Wish wish) {

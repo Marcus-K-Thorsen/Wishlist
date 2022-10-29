@@ -1,18 +1,15 @@
 package com.example.digitalwishlist;
 
-import com.example.digitalwishlist.model.user.User;
-import com.example.digitalwishlist.model.user.UserDao;
+import com.example.digitalwishlist.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 @SpringBootTest
 class DigitalWishlistApplicationTests {
 
   @Autowired
-  private UserDao userDao;
+  private UserService userService;
 
 /*  @Test
   void addUserTest() {
@@ -39,7 +36,7 @@ class DigitalWishlistApplicationTests {
 
   @Test
   void changePasswordById(){
-    userDao.updatePassword("user01@kea.com","JohnJohn");
+    userService.updatePassword("user01@kea.com","JohnJohn");
   }
 /*@Test
   void contextLoads() {

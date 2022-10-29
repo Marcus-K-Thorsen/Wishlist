@@ -1,6 +1,4 @@
-package com.example.digitalwishlist.model.wish;
-
-import com.example.digitalwishlist.model.wishlist.Wishlist;
+package com.example.digitalwishlist.model;
 
 import javax.persistence.*;
 
@@ -10,7 +8,7 @@ public class Wish {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(unique = true)
-  private int id;
+  private long id;
   @ManyToOne
   @JoinColumn(name = "id_WL")
   private Wishlist wishlist;
@@ -19,11 +17,21 @@ public class Wish {
   private double price;
   private String link;
 
-  public int getId() {
+  public Wish(String title, String descr, double price, String link) {
+    this.title = title;
+    this.descr = descr;
+    this.price = price;
+    this.link = link;
+  }
+
+  public Wish() {
+  }
+
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -39,8 +47,8 @@ public class Wish {
     return title;
   }
 
-  public void setTitle(String titel) {
-    this.title = titel;
+  public void setTitle(String title) {
+    this.title = title;
   }
 
   public String getDescr() {
@@ -65,5 +73,17 @@ public class Wish {
 
   public void setLink(String link) {
     this.link = link;
+  }
+
+  @Override
+  public String toString() {
+    return "Wish{" +
+        "id=" + id +
+        ", wishlist=" + wishlist +
+        ", title='" + title + '\'' +
+        ", descr='" + descr + '\'' +
+        ", price=" + price +
+        ", link='" + link + '\'' +
+        '}';
   }
 }

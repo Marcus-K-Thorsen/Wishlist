@@ -1,10 +1,8 @@
-package com.example.digitalwishlist.model.user;
-
-import com.example.digitalwishlist.model.wishlist.Wishlist;
+package com.example.digitalwishlist.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -17,7 +15,7 @@ public class User {
   private String givenName;
   private String lastName;
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Set<Wishlist> wishlists = new HashSet<>();
+  private List<Wishlist> wishlists = new ArrayList<>();
   private int amount = wishlists.size();
 
   public User(String email, String password, String givenName, String lastName) {
@@ -62,11 +60,11 @@ public class User {
     this.lastName = lastName;
   }
 
-  public Set<Wishlist> getWishlists() {
+  public List<Wishlist> getWishlists() {
     return wishlists;
   }
 
-  public void setWishlists(Set<Wishlist> wishlists) {
+  public void setWishlists(List<Wishlist> wishlists) {
     this.wishlists = wishlists;
   }
 
@@ -76,5 +74,17 @@ public class User {
 
   public void setAmount(int amount) {
     this.amount = amount;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+        "email='" + email + '\'' +
+        ", password='" + password + '\'' +
+        ", givenName='" + givenName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", wishlists=" + wishlists +
+        ", amount=" + amount +
+        '}';
   }
 }

@@ -1,11 +1,8 @@
-package com.example.digitalwishlist.model.wishlist;
-
-import com.example.digitalwishlist.model.user.User;
-import com.example.digitalwishlist.model.wish.Wish;
+package com.example.digitalwishlist.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "wishlists")
@@ -19,9 +16,17 @@ public class Wishlist {
   private User user;
   private String title;
   private String descr;
-  @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Set<Wish> wishes = new HashSet<>();
+  @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<Wish> wishes = new ArrayList<>();
   private int amount = wishes.size();
+
+  public Wishlist(String title, String descr) {
+    this.title = title;
+    this.descr = descr;
+  }
+
+  public Wishlist() {
+  }
 
   public int getId() {
     return id;
@@ -43,8 +48,8 @@ public class Wishlist {
     return title;
   }
 
-  public void setTitle(String titel) {
-    this.title = titel;
+  public void setTitle(String title) {
+    this.title = title;
   }
 
   public String getDescr() {
@@ -55,11 +60,31 @@ public class Wishlist {
     this.descr = descr;
   }
 
+  public List<Wish> getWishes() {
+    return wishes;
+  }
+
+  public void setWishes(List<Wish> wishes) {
+    this.wishes = wishes;
+  }
+
   public int getAmount() {
     return amount;
   }
 
   public void setAmount(int amount) {
     this.amount = amount;
+  }
+
+  @Override
+  public String toString() {
+    return "Wishlist{" +
+        "id=" + id +
+        ", user=" + user +
+        ", title='" + title + '\'' +
+        ", descr='" + descr + '\'' +
+        ", wishes=" + wishes +
+        ", amount=" + amount +
+        '}';
   }
 }

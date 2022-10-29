@@ -1,5 +1,7 @@
-package com.example.digitalwishlist.model.user;
+package com.example.digitalwishlist.service;
 
+import com.example.digitalwishlist.model.User;
+import com.example.digitalwishlist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
@@ -9,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserDao {
+public class UserService {
 
   private static UserRepository repository = null;
 
   @Autowired
-  public UserDao(UserRepository repository) {
-    UserDao.repository = repository;
+  public UserService(UserRepository repository) {
+    UserService.repository = repository;
   }
 
   public static void save(User user) {
@@ -52,7 +54,7 @@ public class UserDao {
   }
 
   @Transactional
-  public void updateFirstName(String email, String givenName) {
+  public void updateGivenName(String email, String givenName) {
     User user = repository.findById(email).orElseThrow(() -> new IllegalStateException(
         "User with email:  " + email + " does not exist"));
 

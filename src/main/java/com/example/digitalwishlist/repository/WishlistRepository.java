@@ -1,6 +1,6 @@
-package com.example.digitalwishlist.model.wishlist;
+package com.example.digitalwishlist.repository;
 
-import com.example.digitalwishlist.model.wish.Wish;
+import com.example.digitalwishlist.model.Wishlist;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
