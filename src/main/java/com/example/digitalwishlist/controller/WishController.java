@@ -31,7 +31,7 @@ public class WishController {
 
   @PostMapping(path = "/wish/post")
   public void registerNewWish(@RequestBody Wish wish) {
-    WishService.save(wish);
+    wishService.save(wish);
   }
 
   @DeleteMapping(path = "/wish/delete/{userId}")

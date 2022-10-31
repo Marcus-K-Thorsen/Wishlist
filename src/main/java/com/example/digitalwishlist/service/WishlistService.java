@@ -13,18 +13,18 @@ import java.util.List;
 @Service
 public class WishlistService {
 
-  private static WishlistRepository repository = null;
+  private final WishlistRepository repository;
 
   @Autowired
   public WishlistService(WishlistRepository repository) {
-    WishlistService.repository = repository;
+    this.repository = repository;
   }
 
-  public static void save(Wishlist wishlist) {
+  public void save(Wishlist wishlist) {
     repository.save(wishlist);
   }
 
-  public void delete(int id) {
+  public void delete(long id) {
     boolean exists = repository.existsById(id);
     if (!exists) {
       throw new IllegalStateException("Wishlist with id:  " + id + " does not exist");
@@ -44,7 +44,7 @@ public class WishlistService {
   }
 
   @Transactional
-  public void updateTitle(int id, String title) {
+  public void updateTitle(long id, String title) {
     Wishlist wishlist = repository.findById(id).orElseThrow(() -> new IllegalStateException(
         "Wishlist with id:  " + id + " does not exist"));
 
@@ -54,7 +54,7 @@ public class WishlistService {
   }
 
   @Transactional
-  public void updateDescription(int id, String descr) {
+  public void updateDescription(long id, String descr) {
     Wishlist wishlist = repository.findById(id).orElseThrow(() -> new IllegalStateException(
         "Wishlist with id:  " + id + " does not exist"));
 

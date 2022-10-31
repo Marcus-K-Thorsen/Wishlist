@@ -31,7 +31,7 @@ public class UserController {
 
   @PostMapping(path = "/user/post")
   public void registerNewUser(@RequestBody User user) {
-    UserService.save(user);
+    userService.save(user);
   }
 
   @DeleteMapping(path = "/user/delete/{userId}")

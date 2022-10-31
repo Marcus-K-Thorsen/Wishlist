@@ -1,6 +1,7 @@
 package com.example.digitalwishlist.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +10,15 @@ import java.util.List;
 public class User {
   @Id
   @Column(unique = true)
+  @Email
   private String email;
   @Column(name = "pw")
   private String password;
   private String givenName;
+
   private String lastName;
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Wishlist> wishlists = new ArrayList<>();
-  private int amount = wishlists.size();
 
   public User(String email, String password, String givenName, String lastName) {
     this.email = email;
@@ -68,14 +70,6 @@ public class User {
     this.wishlists = wishlists;
   }
 
-  public int getAmount() {
-    return amount;
-  }
-
-  public void setAmount(int amount) {
-    this.amount = amount;
-  }
-
   @Override
   public String toString() {
     return "User{" +
@@ -84,7 +78,6 @@ public class User {
         ", givenName='" + givenName + '\'' +
         ", lastName='" + lastName + '\'' +
         ", wishlists=" + wishlists +
-        ", amount=" + amount +
         '}';
   }
 }

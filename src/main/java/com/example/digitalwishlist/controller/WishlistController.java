@@ -31,7 +31,7 @@ public class WishlistController {
 
   @PostMapping(path = "/wishlist/post")
   public void registerNewWishlist(@RequestBody Wishlist wishlist) {
-    WishlistService.save(wishlist);
+    wishlistService.save(wishlist);
   }
 
   @DeleteMapping(path = "/wishlist/delete/{userId}")

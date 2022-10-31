@@ -1,16 +1,17 @@
 package com.example.digitalwishlist.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "wishlists")
-public class Wishlist {
+public class Wishlist implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(unique = true)
-  private int id;
+  private long id;
   @ManyToOne
   @JoinColumn(name = "email")
   private User user;
@@ -18,7 +19,6 @@ public class Wishlist {
   private String descr;
   @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Wish> wishes = new ArrayList<>();
-  private int amount = wishes.size();
 
   public Wishlist(String title, String descr) {
     this.title = title;
@@ -28,7 +28,7 @@ public class Wishlist {
   public Wishlist() {
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
@@ -68,14 +68,6 @@ public class Wishlist {
     this.wishes = wishes;
   }
 
-  public int getAmount() {
-    return amount;
-  }
-
-  public void setAmount(int amount) {
-    this.amount = amount;
-  }
-
   @Override
   public String toString() {
     return "Wishlist{" +
@@ -84,7 +76,6 @@ public class Wishlist {
         ", title='" + title + '\'' +
         ", descr='" + descr + '\'' +
         ", wishes=" + wishes +
-        ", amount=" + amount +
         '}';
   }
 }

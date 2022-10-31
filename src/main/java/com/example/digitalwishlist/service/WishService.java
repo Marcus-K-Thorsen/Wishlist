@@ -13,18 +13,18 @@ import java.util.List;
 @Service
 public class WishService {
 
-  private static WishRepository repository = null;
+  private final WishRepository repository;
 
   @Autowired
   public WishService(WishRepository repository) {
-    WishService.repository = repository;
+    this.repository = repository;
   }
 
-  public static void save(Wish wish) {
+  public void save(Wish wish) {
     repository.save(wish);
   }
 
-  public void delete(int id) {
+  public void delete(long id) {
     boolean exists = repository.existsById(id);
     if (!exists) {
       throw new IllegalStateException("Wish with id:  " + id + " does not exist");
@@ -44,7 +44,7 @@ public class WishService {
   }
 
   @Transactional
-  public void updateTitle(int id, String title) {
+  public void updateTitle(long id, String title) {
     Wish wish = repository.findById(id).orElseThrow(() -> new IllegalStateException(
         "Wish with id:  " + id + " does not exist"));
 
@@ -54,7 +54,7 @@ public class WishService {
   }
 
   @Transactional
-  public void updateDescription(int id, String descr) {
+  public void updateDescription(long id, String descr) {
     Wish wish = repository.findById(id).orElseThrow(() -> new IllegalStateException(
         "Wish with id:  " + id + " does not exist"));
 
@@ -64,7 +64,7 @@ public class WishService {
   }
 
   @Transactional
-  public void updatePrice(int id, int price) { //Integer?? eller long??
+  public void updatePrice(long id, int price) { //Integer?? eller long??
     Wish wish = repository.findById(id).orElseThrow(() -> new IllegalStateException(
         "Wish with id:  " + id + " does not exist"));
 
@@ -74,7 +74,7 @@ public class WishService {
   }
 
   @Transactional
-  public void updateLink(int id, String link) {
+  public void updateLink(long id, String link) {
     Wish wish = repository.findById(id).orElseThrow(() -> new IllegalStateException(
         "Wish with id:  " + id + " does not exist"));
 

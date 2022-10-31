@@ -13,14 +13,14 @@ import java.util.List;
 @Service
 public class UserService {
 
-  private static UserRepository repository = null;
+  private final UserRepository repository;
 
   @Autowired
   public UserService(UserRepository repository) {
-    UserService.repository = repository;
+    this.repository = repository;
   }
 
-  public static void save(User user) {
+  public void save(User user) {
     repository.save(user);
   }
 
