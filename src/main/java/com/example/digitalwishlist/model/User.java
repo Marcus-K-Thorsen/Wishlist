@@ -81,4 +81,21 @@ public class User {
         ", lastName='" + lastName + '\'' +
         '}';
   }
+
+  // Metoder jeg har tilført for HTML kan bruge dem
+  public void setWishlists(Wishlist wishlist) {
+    this.wishlists.add(wishlist);
+  }
+
+  public String getName() {
+    if (givenName.isBlank() && lastName.isBlank()) {
+      return email;
+    } else if (givenName.isBlank()) {
+      return lastName;
+    } else if (lastName.isBlank()) {
+      return givenName;
+    } else {
+      return givenName + ' ' + lastName;
+    }
+  }
 }

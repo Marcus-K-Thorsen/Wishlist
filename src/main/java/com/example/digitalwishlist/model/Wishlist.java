@@ -81,4 +81,14 @@ public class Wishlist implements Serializable {
         ", wishes=" + wishes +
         '}';
   }
+
+  // Metoder jeg har tilført for HTML kan bruge dem
+  public void setWish(Wish wish) {
+    this.wishes.add(wish);
+  }
+
+  public Wish getWish(int index) {
+    return wishes.get(index);
+  }
+
 }
