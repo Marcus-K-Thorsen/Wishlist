@@ -194,6 +194,15 @@ body {
     margin-bottom: 40px;
 }
 
+.shared-wish {
+    display: grid;
+    grid-template-rows: 1fr 1fr 3fr 1fr;
+    border: 5px solid green;
+    border-radius: 5px;
+    height: auto;
+    width: 20%;
+}
+
 .wishes {
     display: flex;
     justify-content: space-around;

@@ -2,46 +2,67 @@ package com.example.digitalwishlist.controller;
 
 
 import com.example.digitalwishlist.model.Wish;
-import com.example.digitalwishlist.service.WishService;
+import com.example.digitalwishlist.service.WishServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
-@RestController
-@RequestMapping("/wish")
+@Controller
+@RequestMapping("/Wish")
 public class WishController {
 
-  private final WishService wishService;
+  private final WishServiceImpl wishService;
 
   @Autowired
-  public WishController(WishService wishService) {
+  public WishController(WishServiceImpl wishService) {
     this.wishService = wishService;
   }
 
-  //TODO : fix get og getAll metoder
-
-/*  @GetMapping(path = "/get")
-  public List<Wish> getWish() {
-    return wishService.getWish();
+  // display list of wishes
+  @GetMapping("/")
+  public String viewHomePage(Model model) {
+    model.addAttribute("listWishes", wishService.getAllWishes());
+    return "index";
   }
 
-  @GetMapping(path = "/getAll")
-  public List<Wish> getAllWishes() {
-    return wishService.getAllWishes();
-  }*/
-
-  @PostMapping(path = "/post")
-  public void registerNewWish(@RequestBody Wish wish) {
-    wishService.save(wish);
+  @GetMapping("/showNewWishForm")
+  public String showNewWishForm(Model model) {
+    // create model attribute to bind form data
+    Wish wish = new Wish();
+    model.addAttribute("wish", wish);
+    return "new_wish";
   }
 
-  @DeleteMapping(path = "/delete/{wishId}")
-  public void deleteWish(@PathVariable("wishId") Long id) {
-    wishService.delete(id);
+  @PostMapping("/saveWish")
+  public String saveWish(@ModelAttribute("wish") Wish wish) {
+    // save wish to database
+    wishService.saveWish(wish);
+    return "redirect:/";
   }
 
-  @PutMapping(path = "/put/title/{wishId}")
+  @GetMapping("/showFormForUpdate/{id}")
+  public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
+
+    // get wish from the service
+    Optional<Wish> wish = wishService.getWishById(id);
+
+    // set wish as a model attribute to pre-populate the form
+    model.addAttribute("wish", wish);
+    return "update_wish";
+  }
+
+  @GetMapping("/deleteWish/{id}")
+  public String deleteWish(@PathVariable(value = "id") long id) {
+
+    // call delete wish method
+    this.wishService.deleteWishById(id);
+    return "redirect:/";
+  }
+
+/*  @PutMapping(path = "/put/title/{wishId}")
   public void updateWishTitle(
       @PathVariable("wishId") Long id,
       @RequestParam(required = false) String title) {
@@ -67,5 +88,5 @@ public class WishController {
       @PathVariable("wishId") Long id,
       @RequestParam(required = false) String link) {
     wishService.updateLink(id, link);
-  }
+  }*/
 }

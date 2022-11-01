@@ -1,6 +1,7 @@
 package com.example.digitalwishlist.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "wishes")
@@ -12,6 +13,7 @@ public class Wish {
   @ManyToOne
   @JoinColumn(name = "id_WL")
   private Wishlist wishlist;
+  @NotBlank(message = "Title is mandatory")
   private String title;
   private String descr;
   private double price;

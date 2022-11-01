@@ -1,6 +1,7 @@
 package com.example.digitalwishlist.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,9 @@ public class Wishlist implements Serializable {
   @ManyToOne
   @JoinColumn(name = "email")
   private User user;
+  @NotBlank(message = "Title is mandatory")
   private String title;
+
   private String descr;
   @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Wish> wishes = new ArrayList<>();
@@ -64,9 +67,9 @@ public class Wishlist implements Serializable {
     return wishes;
   }
 
-  public void setWishes(List<Wish> wishes) {
+/*  public void setWishes(List<Wish> wishes) {
     this.wishes = wishes;
-  }
+  }*/
 
   @Override
   public String toString() {

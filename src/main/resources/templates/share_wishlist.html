@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Ønskeliste en bruger der ikke er logget ind ser en delt ønskeseddel fra en bruger der har en konto</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="sky-background">
+
+  <section class="side_banner relative">
+    Share-Ønskeseddel-Side Banner
+    <a href="/" class="button åben-side corner-button">
+      Gå til forsiden<br>(åbner Forsiden)
+    </a>
+  </section>
+
+  <section class="side_info">
+    <p>
+      Noget introducerende tekst omkring denne side: Dette er her hvor man kan se en ønskeseddel for en bruger der har valgt at dele linket for det, samt de ønsker der er for den seddel, for en bruger der ikke er logget ind. Dog uden at det er muligt at lave nogen ændringer på ønskesedlen.
+    </p>
+    <p>
+      Informativ tekst omkring hvad man kan gøre på sin se ønskeseddel side: Dette er et link der viser en specifik ønskeseddel for en bruger, der er blevet delt med nogen, så de kan forstå hvad der ønskes af denne bruger. Der vil kun være info, som ikke kan ændres og måske et link til det ønskede produkt og en knap (Gå Til Forsiden) der fører én til forsiden. Du er en gæst som ser: <span class="inline" th:text="${wishlist.getTitle()}"></span>
+      ”Ønskeseddel Titel” for brugeren <span class="inline" th:text="${user.getName()}"></span> ”bruger-navn”. Beskrivelsen for denne ønskeseddel er: <span class="inline" th:text="${wishlist.getDesc()}"></span>
+      ”Beskrivelse for ønskeseddel” er info der bliver givet fra den brugers specifikke ønskeseddel, som er blevet hentet fra den ønskeseddels tabel, man har fået linket for.
+    </p>
+  </section>
+
+  <section class="wishes">
+
+    <div class="shared-wish">
+      <article class="wish-data wish-box" th:text="${wishlist.getWishes(0).getTitle()}">
+        "Titlen på ønsket" (fra det første wish objekt)
+      </article>
+
+      <article class="wish-data wish-box">
+        Prisen for det ønskede produkt: <span class="inline" th:text="${wishlist.getWishes(0).getPriceAsText()}"></span> 49.95 kr. (fra det første wish objekt)
+      </article>
+
+      <article class="wish-data wish-box">
+        Beskrivelsen for dette ønske: <span class="inline" th:text="${wishlist.getWishes(0).getDescription()}"></span> blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah (kommer fra det første wish objekt)
+      </article>
+
+      <a class="wish-box åben-side wish-button" th:href="${wishlist.getWishes(0).getLink()}" target="_blank">
+        Link til det ønskede produkt (kommer fra det første wish objekt og en klasse der laver HTML kode hvis der er et link)
+      </a>
+    </div>
+
+    <div class="shared-wish">
+      <article class="wish-data wish-box" th:text="${wishlist.getWishes(1).getTitle()}">
+        "Titlen på ønsket" (fra det andet wish objekt)
+      </article>
+
+      <article class="wish-data wish-box">
+        Prisen for det ønskede produkt: <span class="inline" th:text="${wishlist.getWishes(1).getPriceAsText()}"></span> Ingen pris er blevet angivet. (fra det andet wish objekt)
+      </article>
+
+      <article class="wish-data wish-box">
+        Beskrivelsen for dette ønske: <span class="inline" th:text="${wishlist.getWishes(1).getDescription()}"></span> Ingen beskrivelse er blevet angivet. (kommer fra det andet wish objekt)
+      </article>
+
+      <a class="wish-box åben-side wish-button" th:href="${wishlist.getWishes(1).getLink()}" target="_blank">
+        Link til det ønskede produkt (komer fra det andet wish objekt og en klasse der laver HTML kode hvis der er et link)
+      </a>
+    </div>
+
+    <div class="shared-wish">
+      <article class="wish-data wish-box" th:text="${wishlist.getWishes(2).getTitle()}">
+        "Titlen på ønsket" (fra det tredje wish objekt)
+      </article>
+
+      <article class="wish-data wish-box">
+        Prisen for det ønskede produkt: <span class="inline" th:text="${wishlist.getWishes(2).getPriceAsText()}"></span> 49.95 kr. (fra det tredje wish objekt)
+      </article>
+
+      <article class="wish-data wish-box">
+        Beskrivelsen for dette ønske: <span class="inline" th:text="${wishlist.getWishes(2).getDescription()}"></span> blah blah blah blah blah blah blah (kommer fra det tredje wish objekt)
+      </article>
+
+      <article class="wish-data wish-box">
+        Intet link er blevet angivet (kommer fra en klasse der laver HTML kode hvis intet link er angivet)
+      </article>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

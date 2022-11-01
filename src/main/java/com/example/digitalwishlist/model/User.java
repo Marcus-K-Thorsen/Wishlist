@@ -1,7 +1,7 @@
 package com.example.digitalwishlist.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +10,14 @@ import java.util.List;
 public class User {
   @Id
   @Column(unique = true)
-  @Email
+  @NotBlank(message = "Email/Username is mandatory")
   private String email;
   @Column(name = "pw")
+  @NotBlank(message = "Password is mandatory")
   private String password;
+  @NotBlank(message = "Given name is mandatory")
   private String givenName;
-
+  @NotBlank(message = "Last name is mandatory")
   private String lastName;
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Wishlist> wishlists = new ArrayList<>();
@@ -66,9 +68,9 @@ public class User {
     return wishlists;
   }
 
-  public void setWishlists(List<Wishlist> wishlists) {
+/*  public void setWishlists(List<Wishlist> wishlists) {
     this.wishlists = wishlists;
-  }
+  }*/
 
   @Override
   public String toString() {
@@ -77,7 +79,6 @@ public class User {
         ", password='" + password + '\'' +
         ", givenName='" + givenName + '\'' +
         ", lastName='" + lastName + '\'' +
-        ", wishlists=" + wishlists +
         '}';
   }
 }

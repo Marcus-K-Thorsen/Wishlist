@@ -2,46 +2,67 @@ package com.example.digitalwishlist.controller;
 
 
 import com.example.digitalwishlist.model.Wishlist;
-import com.example.digitalwishlist.service.WishlistService;
+import com.example.digitalwishlist.service.WishlistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
-@RestController
-@RequestMapping("/wishlist")
+@Controller
+@RequestMapping("/Wishlist")
 public class WishlistController {
 
-  private final WishlistService wishlistService;
+  private final WishlistServiceImpl wishlistService;
 
   @Autowired
-  public WishlistController(WishlistService wishlistService) {
+  public WishlistController(WishlistServiceImpl wishlistService) {
     this.wishlistService = wishlistService;
   }
 
-  //TODO : fix get og getAll metoder
-
-/*  @GetMapping(path = "/get")
-  public List<Wishlist> getWishlist() {
-    return wishlistService.getWishlist();
+  // display list of wishlists
+  @GetMapping("/")
+  public String viewHomePage(Model model) {
+    model.addAttribute("listWishlists", wishlistService.getAllWishlists());
+    return "index";
   }
 
-  @GetMapping(path = "/getAll")
-  public List<Wishlist> getAllWishlists() {
-    return wishlistService.getAllWishlists();
-  }*/
-
-  @PostMapping(path = "/post")
-  public void registerNewWishlist(@RequestBody Wishlist wishlist) {
-    wishlistService.save(wishlist);
+  @GetMapping("/showNewWishlistForm")
+  public String showNewWishlistForm(Model model) {
+    // create model attribute to bind form data
+    Wishlist wishlist = new Wishlist();
+    model.addAttribute("wishlist", wishlist);
+    return "new_wishlist";
   }
 
-  @DeleteMapping(path = "/delete/{wishlistId}")
-  public void deleteWishlist(@PathVariable("wishlistId") Integer id) {
-    wishlistService.delete(id);
+  @PostMapping("/saveWishlist")
+  public String saveWishlist(@ModelAttribute("wishlist") Wishlist wishlist) {
+    // save wishlist to database
+    wishlistService.saveWishlist(wishlist);
+    return "redirect:/";
   }
 
-  @PutMapping(path = "/put/title/{wishlistId}")
+  @GetMapping("/showFormForUpdate/{id}")
+  public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
+
+    // get wishlist from the service
+    Optional<Wishlist> wishlist = wishlistService.getWishlistById(id);
+
+    // set wishlist as a model attribute to pre-populate the form
+    model.addAttribute("wishlist", wishlist);
+    return "update_wishlist";
+  }
+
+  @GetMapping("/deleteWishlist/{id}")
+  public String deleteWishlist(@PathVariable(value = "id") long id) {
+
+    // call delete wishlist method
+    this.wishlistService.deleteWishlistById(id);
+    return "redirect:/";
+  }
+
+/*  @PutMapping(path = "/put/title/{wishlistId}")
   public void updateWishlistTitle(
       @PathVariable("wishlistId") Integer id,
       @RequestParam(required = false) String title) {
@@ -53,5 +74,5 @@ public class WishlistController {
       @PathVariable("wishlistId") Integer id,
       @RequestParam(required = false) String descr) {
     wishlistService.updateDescription(id, descr);
-  }
+  }*/
 }
