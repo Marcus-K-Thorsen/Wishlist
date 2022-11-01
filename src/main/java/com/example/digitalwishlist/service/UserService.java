@@ -32,7 +32,7 @@ public class UserService {
     repository.deleteById(email);
   }
 
-  public List<User> getAllUsers() {
+/*  public List<User> getAllUsers() {
     List<User> users = new ArrayList<>();
     Streamable.of(repository.findAll())
         .forEach(users::add);
@@ -41,7 +41,7 @@ public class UserService {
 
   public List<User> getUser() {
     return (List<User>) repository.findAll();
-  }
+  }*/
 
   @Transactional
   public void updatePassword(String email, String password) {

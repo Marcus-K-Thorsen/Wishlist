@@ -32,7 +32,7 @@ public class WishlistService {
     repository.deleteById(id);
   }
 
-  public List<Wishlist> getAllWishlists() {
+/*  public List<Wishlist> getAllWishlists() {
     List<Wishlist> wishlists = new ArrayList<>();
     Streamable.of(repository.findAll())
         .forEach(wishlists::add);
@@ -41,7 +41,7 @@ public class WishlistService {
 
   public List<Wishlist> getWishlist() {
     return (List<Wishlist>) repository.findAll();
-  }
+  }*/
 
   @Transactional
   public void updateTitle(long id, String title) {

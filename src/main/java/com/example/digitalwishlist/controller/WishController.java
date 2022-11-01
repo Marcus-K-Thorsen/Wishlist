@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/wish")
 public class WishController {
 
   private final WishService wishService;
@@ -19,50 +19,52 @@ public class WishController {
     this.wishService = wishService;
   }
 
-  @GetMapping(path = "/wish/get")
+  //TODO : fix get og getAll metoder
+
+/*  @GetMapping(path = "/get")
   public List<Wish> getWish() {
     return wishService.getWish();
   }
 
-  @GetMapping(path = "/wish/getAll")
+  @GetMapping(path = "/getAll")
   public List<Wish> getAllWishes() {
     return wishService.getAllWishes();
-  }
+  }*/
 
-  @PostMapping(path = "/wish/post")
+  @PostMapping(path = "/post")
   public void registerNewWish(@RequestBody Wish wish) {
     wishService.save(wish);
   }
 
-  @DeleteMapping(path = "/wish/delete/{userId}")
-  public void deleteWish(@PathVariable("userId") Integer id) {
+  @DeleteMapping(path = "/delete/{wishId}")
+  public void deleteWish(@PathVariable("wishId") Long id) {
     wishService.delete(id);
   }
 
-  @PutMapping(path = "/wish/put/title/{userId}")
+  @PutMapping(path = "/put/title/{wishId}")
   public void updateWishTitle(
-      @PathVariable("userId") Integer id,
+      @PathVariable("wishId") Long id,
       @RequestParam(required = false) String title) {
     wishService.updateTitle(id, title);
   }
 
-  @PutMapping(path = "/wish/put/descr/{userId}")
+  @PutMapping(path = "/put/descr/{wishId}")
   public void updateWishDescr(
-      @PathVariable("userId") Integer id,
+      @PathVariable("wishId") Long id,
       @RequestParam(required = false) String descr) {
     wishService.updateDescription(id, descr);
   }
 
-  @PutMapping(path = "/wish/put/price/{userId}")
+  @PutMapping(path = "/put/price/{wishId}")
   public void updateWishPrice(
-      @PathVariable("userId") Integer id,
+      @PathVariable("wishId") Long id,
       @RequestParam(required = false) Integer price) {
     wishService.updatePrice(id, price);
   }
 
-  @PutMapping(path = "/wish/put/link/{userId}")
+  @PutMapping(path = "/put/link/{wishId}")
   public void updateWishLink(
-      @PathVariable("userId") Integer id,
+      @PathVariable("wishId") Long id,
       @RequestParam(required = false) String link) {
     wishService.updateLink(id, link);
   }

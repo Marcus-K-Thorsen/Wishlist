@@ -32,7 +32,7 @@ public class WishService {
     repository.deleteById(id);
   }
 
-  public List<Wish> getAllWishes() {
+/*  public List<Wish> getAllWishes() {
     List<Wish> wishes = new ArrayList<>();
     Streamable.of(repository.findAll())
         .forEach(wishes::add);
@@ -41,7 +41,7 @@ public class WishService {
 
   public List<Wish> getWish() {
     return (List<Wish>) repository.findAll();
-  }
+  }*/
 
   @Transactional
   public void updateTitle(long id, String title) {

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/wishlist")
 public class WishlistController {
 
   private final WishlistService wishlistService;
@@ -19,36 +19,38 @@ public class WishlistController {
     this.wishlistService = wishlistService;
   }
 
-  @GetMapping(path = "/wishlist/get")
+  //TODO : fix get og getAll metoder
+
+/*  @GetMapping(path = "/get")
   public List<Wishlist> getWishlist() {
     return wishlistService.getWishlist();
   }
 
-  @GetMapping(path = "/wishlist/getAll")
+  @GetMapping(path = "/getAll")
   public List<Wishlist> getAllWishlists() {
     return wishlistService.getAllWishlists();
-  }
+  }*/
 
-  @PostMapping(path = "/wishlist/post")
+  @PostMapping(path = "/post")
   public void registerNewWishlist(@RequestBody Wishlist wishlist) {
     wishlistService.save(wishlist);
   }
 
-  @DeleteMapping(path = "/wishlist/delete/{userId}")
-  public void deleteWishlist(@PathVariable("userId") Integer id) {
+  @DeleteMapping(path = "/delete/{wishlistId}")
+  public void deleteWishlist(@PathVariable("wishlistId") Integer id) {
     wishlistService.delete(id);
   }
 
-  @PutMapping(path = "/wishlist/put/title/{userId}")
+  @PutMapping(path = "/put/title/{wishlistId}")
   public void updateWishlistTitle(
-      @PathVariable("userId") Integer id,
+      @PathVariable("wishlistId") Integer id,
       @RequestParam(required = false) String title) {
     wishlistService.updateTitle(id, title);
   }
 
-  @PutMapping(path = "/wishlist/put/descr/{userId}")
+  @PutMapping(path = "/put/descr/{wishlistId}")
   public void updateWishlistDescr(
-      @PathVariable("userId") Integer id,
+      @PathVariable("wishlistId") Integer id,
       @RequestParam(required = false) String descr) {
     wishlistService.updateDescription(id, descr);
   }
