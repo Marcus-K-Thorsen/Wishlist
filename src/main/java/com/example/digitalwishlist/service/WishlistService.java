@@ -1,5 +1,6 @@
 package com.example.digitalwishlist.service;
 
+import com.example.digitalwishlist.model.User;
 import com.example.digitalwishlist.model.Wishlist;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface WishlistService {
   List<Wishlist> getAllWishlists();
 
   Optional<Wishlist> getWishlistById(long id);
+
+  List<Wishlist> getWishlistsByUserId (User user);
 }

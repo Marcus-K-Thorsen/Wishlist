@@ -1,10 +1,12 @@
 package com.example.digitalwishlist.service;
 
+import com.example.digitalwishlist.model.User;
 import com.example.digitalwishlist.model.Wishlist;
 import com.example.digitalwishlist.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +49,24 @@ public class WishlistServiceImpl implements WishlistService {
       throw new RuntimeException("Wishlist not found for id :: " + id);
     }
     return Optional.of(wishlist);
+  }
+
+  @Override
+  public List<Wishlist> getWishlistsByUserId(User user) {
+    List<Wishlist> unsortedList = wishlistRepository.findAll();
+    List<Wishlist> sortedList = new ArrayList<>();
+    String userId = user.getEmail();
+    String foreignKey;
+    for (int i = 0; i < unsortedList.size(); i++) {
+      foreignKey = unsortedList.get(i).getUser().getEmail();
+      if (foreignKey.equals(userId)) {
+        Wishlist wishlist = unsortedList.get(i);
+        sortedList.add(wishlist);
+      }
+      return sortedList;
+    }
+
+    return null;
   }
 
 /*  @Transactional

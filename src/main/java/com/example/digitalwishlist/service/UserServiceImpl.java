@@ -49,6 +49,21 @@ public class UserServiceImpl implements UserService {
     return Optional.of(user);
   }
 
+  @Override
+  public boolean loginTest(String id, String password) {
+    try {
+      Optional<User> optionalUser = getUserById(id);
+
+      User user = optionalUser.get();
+      String actualPassword = user.getPassword();
+      return password.equals(actualPassword);
+
+    } catch (Exception e) {
+      System.out.println("FEJL!");
+    }
+    return false;
+  }
+
 
 /*  @Transactional
   public void updatePassword(String id, String password) {

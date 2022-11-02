@@ -27,9 +27,11 @@ public class User {
     this.password = password;
     this.givenName = givenName;
     this.lastName = lastName;
+
   }
 
   public User() {
+
   }
 
   public String getEmail() {
@@ -68,9 +70,13 @@ public class User {
     return wishlists;
   }
 
-/*  public void setWishlists(List<Wishlist> wishlists) {
+  public Wishlist getWishlists(int index) {
+    return wishlists.get(index);
+  }
+
+  public void setWishlists(List<Wishlist> wishlists) {
     this.wishlists = wishlists;
-  }*/
+  }
 
   @Override
   public String toString() {

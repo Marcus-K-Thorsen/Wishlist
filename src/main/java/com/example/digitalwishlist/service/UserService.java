@@ -13,5 +13,7 @@ public interface UserService {
   List<User> getAllUsers();
 
   Optional<User> getUserById(String id);
+
+  boolean loginTest(String id, String password);
 }
 

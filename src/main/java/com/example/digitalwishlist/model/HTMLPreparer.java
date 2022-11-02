@@ -24,8 +24,7 @@ public class HTMLPreparer {
     String HTMLCode;
     for (int i = 1; i <= 4; i++) {
       if (i <= amountOfWishlists) {
-        Wishlist wishlist = wishlists.get(i-1);
-        HTMLCode = makeWishlistHTMLCode(wishlist);
+        HTMLCode = makeWishlistHTMLCode(i-1);
       } else {
         HTMLCode = makeWishlistHTMLCode();
       }
@@ -125,9 +124,9 @@ public class HTMLPreparer {
 
 
   // Private metoder for toDisplay4WishLists(User user)
-  private static String makeWishlistHTMLCode(Wishlist wishlist) {
+  private static String makeWishlistHTMLCode(int index) {
     String HTMLCode = createBeginningHTMLForWishlist();
-    HTMLCode += createMiddleHTMLForWishlist(wishlist);
+    HTMLCode += createMiddleHTMLForWishlist(index);
     HTMLCode += createEndHTMLForWishlist();
     return HTMLCode;
   }
@@ -146,16 +145,16 @@ public class HTMLPreparer {
               <div class="wish-icons grid-child">
             """;
   }
-  private static String createMiddleHTMLForWishlist(Wishlist wishlist) {
+  private static String createMiddleHTMLForWishlist(int index) {
     return
         "      <form method=\"POST\" action=\"" + methodNameToSeeWishlist + "\">\n" +
-            "        <input type=\"hidden\" name=\"" + nameOfWishListID + "\" th:value=\"${" + nameOfWishlistObject + ".getId()}\">\n" +
+            "        <input type=\"hidden\" name=\"" + nameOfWishListID + "\" th:value=\"${" + nameOfUserObject + "getWishlist(" + index + ").getId()}\">\n" +
             "        <button type=\"submit\" class=\"small-button åben-side-med-input\">\n" +
             "          Se Ønskeseddel\n" +
             "        </button>\n" +
             "      </form>\n" +
             "      <form method=\"POST\" action=\"" + methodNameToDeleteWishlist + "\">\n" +
-            "        <input type=\"hidden\" name=\"" + nameOfWishListID + "\" th:value=\"${" + nameOfWishlistObject + ".getId()}\">\n" +
+            "        <input type=\"hidden\" name=\"" + nameOfWishListID + "\" th:value=\"${" + nameOfUserObject + "getWishlist(" + index + ").getId()}\">\n" +
             "        <button type=\"submit\" class=\"small-button åben-side-med-input\">\n" +
             "          Slet Ønskeseddel\n" +
             "        </button>\n" +
