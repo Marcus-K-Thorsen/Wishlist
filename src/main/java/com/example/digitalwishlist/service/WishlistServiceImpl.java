@@ -2,6 +2,7 @@ package com.example.digitalwishlist.service;
 
 import com.example.digitalwishlist.model.User;
 import com.example.digitalwishlist.model.Wishlist;
+import com.example.digitalwishlist.repository.UserRepository;
 import com.example.digitalwishlist.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,13 @@ import java.util.Optional;
 public class WishlistServiceImpl implements WishlistService {
 
   private final WishlistRepository wishlistRepository;
+  private final UserRepository userRepository;
+
 
   @Autowired
-  public WishlistServiceImpl(WishlistRepository wishlistRepository) {
+  public WishlistServiceImpl(WishlistRepository wishlistRepository, UserRepository userRepository) {
     this.wishlistRepository = wishlistRepository;
+    this.userRepository = userRepository;
   }
 
   @Override
@@ -51,22 +55,9 @@ public class WishlistServiceImpl implements WishlistService {
     return Optional.of(wishlist);
   }
 
-  @Override
-  public List<Wishlist> getWishlistsByUserId(User user) {
-    List<Wishlist> unsortedList = wishlistRepository.findAll();
-    List<Wishlist> sortedList = new ArrayList<>();
-    String userId = user.getEmail();
-    String foreignKey;
-    for (int i = 0; i < unsortedList.size(); i++) {
-      foreignKey = unsortedList.get(i).getUser().getEmail();
-      if (foreignKey.equals(userId)) {
-        Wishlist wishlist = unsortedList.get(i);
-        sortedList.add(wishlist);
-      }
-      return sortedList;
-    }
-
-    return null;
+  public List<Wishlist> getAllWishlistsByUser( String email) {
+    Optional<User> user = userRepository.findById(email);
+    return wishlistRepository.findAllByUser(user);
   }
 
 /*  @Transactional

@@ -24,12 +24,12 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void deleteUserById(String id) {
-    boolean exists = userRepository.existsById(id);
+  public void deleteUserById(String email) {
+    boolean exists = userRepository.existsById(email);
     if (!exists) {
-      throw new IllegalStateException("User with email:  " + id + " does not exist");
+      throw new IllegalStateException("User with email:  " + email + " does not exist");
     }
-    this.userRepository.deleteById(id);
+    this.userRepository.deleteById(email);
   }
 
   @Override
@@ -38,25 +38,22 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public Optional<User> getUserById(String id) {
-    Optional<User> optional = userRepository.findById(id);
+  public Optional<User> getUserById(String email) {
+    Optional<User> optional = userRepository.findById(email);
     User user;
     if (optional.isPresent()) {
       user = optional.get();
     } else {
-      throw new RuntimeException(" User not found for email :: " + id);
+      throw new RuntimeException(" User not found for email :: " + email);
     }
     return Optional.of(user);
   }
 
   @Override
-  public boolean loginTest(String id, String password) {
+  public boolean credintialCheck(String email, String password) {
     try {
-      Optional<User> optionalUser = getUserById(id);
-
-      User user = optionalUser.get();
-      String actualPassword = user.getPassword();
-      return password.equals(actualPassword);
+      Optional<User> user = getUserById(email);
+      return password.equals(user.get().getPassword());
 
     } catch (Exception e) {
       System.out.println("FEJL!");

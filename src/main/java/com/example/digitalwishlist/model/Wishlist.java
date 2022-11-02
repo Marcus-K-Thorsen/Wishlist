@@ -11,7 +11,7 @@ import java.util.List;
 public class Wishlist implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(unique = true)
+/*  @Column(unique = true)*/
   private long id;
   @ManyToOne
   @JoinColumn(name = "email")
@@ -24,6 +24,12 @@ public class Wishlist implements Serializable {
   private List<Wish> wishes = new ArrayList<>();
 
   public Wishlist(String title, String descr) {
+    this.title = title;
+    this.descr = descr;
+  }
+
+  public Wishlist(long id, String title, String descr) {
+    this.id = id;
     this.title = title;
     this.descr = descr;
   }
@@ -63,14 +69,6 @@ public class Wishlist implements Serializable {
     this.descr = descr;
   }
 
-  public List<Wish> getWishes() {
-    return wishes;
-  }
-
-/*  public void setWishes(List<Wish> wishes) {
-    this.wishes = wishes;
-  }*/
-
   @Override
   public String toString() {
     return "Wishlist{" +
@@ -78,17 +76,6 @@ public class Wishlist implements Serializable {
         ", user=" + user +
         ", title='" + title + '\'' +
         ", descr='" + descr + '\'' +
-        ", wishes=" + wishes +
         '}';
   }
-
-  // Metoder jeg har tilført for HTML kan bruge dem
-  public void setWish(Wish wish) {
-    this.wishes.add(wish);
-  }
-
-  public Wish getWish(int index) {
-    return wishes.get(index);
-  }
-
 }

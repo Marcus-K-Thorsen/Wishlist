@@ -2,30 +2,44 @@ package com.example.digitalwishlist.controller;
 
 
 import com.example.digitalwishlist.model.Wish;
+import com.example.digitalwishlist.model.Wishlist;
 import com.example.digitalwishlist.service.WishServiceImpl;
+import com.example.digitalwishlist.service.WishlistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
-@RequestMapping("/Wish")
 public class WishController {
 
   private final WishServiceImpl wishService;
+  private final WishlistServiceImpl wishlistService;
 
   @Autowired
-  public WishController(WishServiceImpl wishService) {
+  public WishController(WishServiceImpl wishService, WishlistServiceImpl wishlistService) {
     this.wishService = wishService;
+    this.wishlistService = wishlistService;
   }
 
   // display list of wishes
-  @GetMapping("/")
-  public String viewHomePage(Model model) {
-    model.addAttribute("listWishes", wishService.getAllWishes());
-    return "index";
+  @GetMapping("/wishlist_homepage/{id}")
+  public String viewHomePage(@PathVariable(value = "id") long id, Model model, HttpSession session) {
+    session.setAttribute("WLIdSession", id);
+    List<Wish> sortedWishes = wishService.getAllWishesByWishlist( id);
+    model.addAttribute("listWishes", sortedWishes);
+    return "test/wishlist_homepage"; //"test/wishlist_homepage"
+  }
+
+  @GetMapping("/wishlist_homepage")
+  public String viewHomePage(Model model, HttpSession session) {
+    long id = (long) session.getAttribute("WLIdSession");
+    List<Wish> sortedWishes = wishService.getAllWishesByWishlist( id);
+    model.addAttribute("listWishes", sortedWishes);
+    return "test/wishlist_homepage";
   }
 
   @GetMapping("/showNewWishForm")
@@ -33,25 +47,41 @@ public class WishController {
     // create model attribute to bind form data
     Wish wish = new Wish();
     model.addAttribute("wish", wish);
-    return "new_wish";
+    return "test/new_wish";
   }
 
   @PostMapping("/saveWish")
-  public String saveWish(@ModelAttribute("wish") Wish wish) {
+  public String saveWish(@ModelAttribute("wish") Wish wish, HttpSession session) {
+    long id = (long) session.getAttribute("WLIdSession");
     // save wish to database
+    wish.setWishlist(wishlistService.getWishlistById(id).get());
     wishService.saveWish(wish);
-    return "redirect:/";
+    return "redirect:/wishlist_homepage";
   }
 
-  @GetMapping("/showFormForUpdate/{id}")
-  public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
+  @PostMapping("/saveWishAfterUpdate")
+  public String saveWishAfterUpdate(@ModelAttribute("wish") Wish wish, HttpSession session) {
+    long id = (long) session.getAttribute("WLIdSession");
+    // save wish to database
+    wish.setWishlist(wishlistService.getWishlistById(id).get());
+    wishService.saveWish(wish);
 
+    // delete old wish from database
+    long idUpdate = (long) session.getAttribute("WishIdForUpdateSession");
+    this.wishService.deleteWishById(idUpdate);
+
+    return "redirect:/wishlist_homepage";
+  }
+
+  @GetMapping("/showWishFormForUpdate/{id}")
+  public String showFormForUpdate(@PathVariable(value = "id") long id, Model model, HttpSession session) {
+    session.setAttribute("WishIdForUpdateSession", id);
     // get wish from the service
-    Optional<Wish> wish = wishService.getWishById(id);
+    Wish wish = wishService.getWishById(id).get();
 
     // set wish as a model attribute to pre-populate the form
     model.addAttribute("wish", wish);
-    return "update_wish";
+    return "test/update_wish";
   }
 
   @GetMapping("/deleteWish/{id}")
@@ -59,7 +89,7 @@ public class WishController {
 
     // call delete wish method
     this.wishService.deleteWishById(id);
-    return "redirect:/";
+    return "redirect:/wishlist_homepage";
   }
 
 /*  @PutMapping(path = "/put/title/{wishId}")

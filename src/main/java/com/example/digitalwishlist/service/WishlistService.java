@@ -14,6 +14,4 @@ public interface WishlistService {
   List<Wishlist> getAllWishlists();
 
   Optional<Wishlist> getWishlistById(long id);
-
-  List<Wishlist> getWishlistsByUserId (User user);
 }

@@ -8,12 +8,12 @@ import java.util.Optional;
 public interface UserService {
   void saveUser(User user);
 
-  void deleteUserById(String id);
+  void deleteUserById(String email);
 
   List<User> getAllUsers();
 
-  Optional<User> getUserById(String id);
+  Optional<User> getUserById(String email);
 
-  boolean loginTest(String id, String password);
+  boolean credintialCheck(String email, String password);
 }
 

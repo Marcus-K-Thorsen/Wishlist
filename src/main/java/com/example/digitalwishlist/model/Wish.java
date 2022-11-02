@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 public class Wish {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(unique = true)
+/*  @Column(unique = true)*/
   private long id;
   @ManyToOne
   @JoinColumn(name = "id_WL")
@@ -81,33 +81,10 @@ public class Wish {
   public String toString() {
     return "Wish{" +
         "id=" + id +
-        ", wishlist=" + wishlist +
         ", title='" + title + '\'' +
         ", descr='" + descr + '\'' +
         ", price=" + price +
         ", link='" + link + '\'' +
         '}';
-  }
-
-  // Metoder jeg har tilført for HTML kan bruge dem
-  public String displayLink() {
-    if (link == null || link.isBlank()) {
-      return "Intet link er blevet angivet.";
-    }
-    return "Link til det ønskede produkt.";
-  }
-
-  public String displayDescr() {
-    if (descr == null || descr.isBlank()) {
-      return "Der er ikke blevet angivet en beskrivelse.";
-    }
-    return descr + '.';
-  }
-
-  public String displayPrice() {
-    if (price == 0) {
-      return "Ingen pris er blevet angivet.";
-    }
-    return price + " kr.";
   }
 }

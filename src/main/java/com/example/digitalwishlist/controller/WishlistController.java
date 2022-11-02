@@ -2,30 +2,35 @@ package com.example.digitalwishlist.controller;
 
 
 import com.example.digitalwishlist.model.Wishlist;
+import com.example.digitalwishlist.service.UserServiceImpl;
 import com.example.digitalwishlist.service.WishlistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
-@RequestMapping
 public class WishlistController {
 
   private final WishlistServiceImpl wishlistService;
+  private final UserServiceImpl userService;
 
   @Autowired
-  public WishlistController(WishlistServiceImpl wishlistService) {
+  public WishlistController(WishlistServiceImpl wishlistService, UserServiceImpl userService) {
     this.wishlistService = wishlistService;
+    this.userService = userService;
   }
 
   // display list of wishlists
   @GetMapping("/user_homepage")
-  public String viewHomePage(Model model) {
-    model.addAttribute("listWishlists", wishlistService.getAllWishlists());
-    return "/test/view_user";
+  public String viewHomePage( Model model, HttpSession session) {
+    String username = (String) session.getAttribute("usernameSession");
+    List<Wishlist> sortedWishlist = wishlistService.getAllWishlistsByUser( username);
+    model.addAttribute("listWishlists", sortedWishlist);
+    return "test/user_homepage";
   }
 
   @GetMapping("/showNewWishlistForm")
@@ -33,25 +38,42 @@ public class WishlistController {
     // create model attribute to bind form data
     Wishlist wishlist = new Wishlist();
     model.addAttribute("wishlist", wishlist);
-    return "/test/new_wishlist";
+    return "test/new_wishlist";
   }
 
   @PostMapping("/saveWishlist")
-  public String saveWishlist(@ModelAttribute("wishlist") Wishlist wishlist) {
+  public String saveWishlist(@ModelAttribute("wishlist") Wishlist wishlist, HttpSession session) {
+    String username = (String) session.getAttribute("usernameSession");
+
     // save wishlist to database
+    wishlist.setUser(userService.getUserById(username).get());
     wishlistService.saveWishlist(wishlist);
-    return "redirect:/";
+    return "redirect:/user_homepage";
   }
 
-  @GetMapping("/showFormForUpdate/{id}")
-  public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
+  @PostMapping("/saveWishlistAfterUpdate")
+  public String saveWishlistAfterUpdate(@ModelAttribute("wishlist") Wishlist wishlist, HttpSession session) {
+    String username = (String) session.getAttribute("usernameSession");
 
+    // save wishlist to database
+    wishlist.setUser(userService.getUserById(username).get());
+    wishlistService.saveWishlist(wishlist);
+
+    // delete old wishlist from database
+    long id = (long) session.getAttribute("WishlistIdSession");
+    this.wishlistService.deleteWishlistById(id);
+    return "redirect:/user_homepage";
+  }
+
+  @GetMapping("/showWishlistFormForUpdate/{id}")
+  public String showWishlistFormForUpdate(@PathVariable(value = "id") long id, Model model, HttpSession session) {
+    session.setAttribute("WishlistIdSession", id);
     // get wishlist from the service
-    Optional<Wishlist> wishlist = wishlistService.getWishlistById(id);
+    Wishlist wishlist = wishlistService.getWishlistById(id).get();
 
     // set wishlist as a model attribute to pre-populate the form
     model.addAttribute("wishlist", wishlist);
-    return "/test/update_wishlist";
+    return "test/update_wishlist";
   }
 
   @GetMapping("/deleteWishlist/{id}")
@@ -59,7 +81,7 @@ public class WishlistController {
 
     // call delete wishlist method
     this.wishlistService.deleteWishlistById(id);
-    return "redirect:/";
+    return "redirect:/user_homepage";
   }
 
 /*  @PutMapping(path = "/put/title/{wishlistId}")

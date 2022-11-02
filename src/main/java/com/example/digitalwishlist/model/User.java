@@ -31,7 +31,6 @@ public class User {
   }
 
   public User() {
-
   }
 
   public String getEmail() {
@@ -66,18 +65,6 @@ public class User {
     this.lastName = lastName;
   }
 
-  public List<Wishlist> getWishlists() {
-    return wishlists;
-  }
-
-  public Wishlist getWishlists(int index) {
-    return wishlists.get(index);
-  }
-
-  public void setWishlists(List<Wishlist> wishlists) {
-    this.wishlists = wishlists;
-  }
-
   @Override
   public String toString() {
     return "User{" +
@@ -86,22 +73,5 @@ public class User {
         ", givenName='" + givenName + '\'' +
         ", lastName='" + lastName + '\'' +
         '}';
-  }
-
-  // Metoder jeg har tilført for HTML kan bruge dem
-  public void setWishlists(Wishlist wishlist) {
-    this.wishlists.add(wishlist);
-  }
-
-  public String getName() {
-    if (givenName.isBlank() && lastName.isBlank()) {
-      return email;
-    } else if (givenName.isBlank()) {
-      return lastName;
-    } else if (lastName.isBlank()) {
-      return givenName;
-    } else {
-      return givenName + ' ' + lastName;
-    }
   }
 }

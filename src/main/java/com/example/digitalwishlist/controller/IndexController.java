@@ -1,6 +1,8 @@
 package com.example.digitalwishlist.controller;
 
+import com.example.digitalwishlist.model.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
   @GetMapping(value = {"/"})
   public String index() {
-    return "index";
+    return "test/index";
   }
 
 /*  @GetMapping(value = {"/login"})
@@ -19,7 +21,7 @@ public class IndexController {
 
     @GetMapping(value = {"/login"})
   public String login() {
-    return "login";
+    return "test/login";
   }
 
   @GetMapping(value = {"/signup"})

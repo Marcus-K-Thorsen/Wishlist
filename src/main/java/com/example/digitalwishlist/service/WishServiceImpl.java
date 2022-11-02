@@ -1,7 +1,9 @@
 package com.example.digitalwishlist.service;
 
 import com.example.digitalwishlist.model.Wish;
+import com.example.digitalwishlist.model.Wishlist;
 import com.example.digitalwishlist.repository.WishRepository;
+import com.example.digitalwishlist.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,12 @@ import java.util.Optional;
 public class WishServiceImpl implements WishService {
 
   private final WishRepository wishRepository;
+  private final WishlistRepository wishlistRepository;
 
   @Autowired
-  public WishServiceImpl(WishRepository repository) {
+  public WishServiceImpl(WishRepository repository, WishlistRepository wishlistRepository) {
     this.wishRepository = repository;
+    this.wishlistRepository = wishlistRepository;
   }
 
   @Override
@@ -47,6 +51,11 @@ public class WishServiceImpl implements WishService {
       throw new RuntimeException("Wish not found for id :: " + id);
     }
     return Optional.of(wish);
+  }
+
+  public List<Wish> getAllWishesByWishlist(long id) {
+    Optional<Wishlist> wishlist = wishlistRepository.findById(id);
+    return wishRepository.findAllByWishlist(wishlist);
   }
 
 /*  @Transactional

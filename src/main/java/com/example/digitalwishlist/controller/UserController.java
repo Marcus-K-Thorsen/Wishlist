@@ -7,13 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-
-import java.util.Objects;
-import java.util.Optional;
 
 @Controller
-@RequestMapping
 public class UserController {
 
   private final UserServiceImpl userService;
@@ -35,20 +30,9 @@ public class UserController {
     // create model attribute to bind form data
     User user = new User();
     model.addAttribute("user", user);
-    return "/test/new_user";
+    return "test/new_user";
   }
 
-/*  @PostMapping("/saveUser")
-  public String saveUser(WebRequest req) {
-    if (Objects.equals(req.getParameter("kodeord1"), req.getParameter("kodeord2"))) {
-      // save user to database
-      User user = new User(req.getParameter("nytbrugernavn"), req.getParameter("kodeord1"), req.getParameter("fornavn"), req.getParameter("efternavn"));
-      userService.saveUser(user);
-      return "redirect:/";
-    } else return "redirect:/signup";
-  }*/
-
-  //TODO: brug thymeleaf i stedet for WebRequest
   @PostMapping("/saveUser")
   public String saveUser(@ModelAttribute("user") User user) {
     // save user to database

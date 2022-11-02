@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="ISO-8859-1">
-  <title>Employee Management System</title>
-
+  <title>Update Wishlist</title>
+  <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
@@ -14,7 +14,10 @@
   <hr>
   <h2>Update Wishlist</h2>
 
-  <form action="#" th:action="@{/saveWishlist}" th:object="${wishlist}" method="POST">
+  <form action="#" th:action="@{/saveWishlistAfterUpdate}" th:object="${wishlist}" method="POST">
+
+    <!-- Add hidden form field to handle update -->
+<!--    <input type="hidden" th:field="*{id}" />-->
 
     <input type="text" th:field="*{title}" class="form-control mb-4 col-4">
 
@@ -25,7 +28,7 @@
 
   <hr>
 
-  <a th:href="@{/}"> Back to Employee List</a>
+  <a th:href="@{/user_homepage}"> Back to Wishlists</a>
 </div>
 </body>
 
