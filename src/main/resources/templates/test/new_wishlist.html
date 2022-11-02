@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Ønskeliste Login Skab En Ønskeseddel</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="sky-background">
+
+    <section class="side_banner">
+        Skab-Ønskeseddel-Side Banner
+    </section>
+
+    <section class="side_info">
+        <p>
+            Noget introducerende tekst omkring denne side: Skab en ønskeseddel for en konto på Digital Ønskeliste Siden,
+            som dette er stedet man skaber sig en ønskeseddel til en konto der allerede er blevet logget ind på.
+        </p>
+        <p>
+            Informativ tekst omkring hvad man kan gøre på skab-ønskeseddel-siden: Indtast informationer for sedlen, som
+            en titel der er påkrævet og en beskrivelse der ikke påkrævet. Når input er indtastet tryk på om du vil skabe
+            den ønskeseddel ud fra det som er indtastet eller om du vil fortryde ønskesedlen og gå tilbage til din
+            konto-side:
+        </p>
+    </section>
+
+    <form method="POST" action="/skab-ønskeseddel" class="input-felter" id="skab">
+
+        <label>
+            <input type="text" name="ønskeseddeltitel" placeholder="Indtast titlen på ønskesedlen..." class="input-felt"
+                   form="skab" maxlength="50" required>
+        </label>
+
+        <label>
+            <textarea rows="5" cols="30" maxlength="200" name="ønskeseddelbeskrivelse"
+                      placeholder="Indtast beskrivelsen på ønskeseddel..." class="big-input-felt input-felt"
+                      form="skab"></textarea>
+        </label>
+
+        <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn()}" form="skab">
+
+        <form method="POST" action="/fortryd-ønskeseddel" id="fortryd">
+            <section class="choices">
+                <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn()}" form="fortryd">
+                <button type="submit" class="button åben-side" form="fortryd">
+                    Fortryd ønskeseddel<br>(åbner Konto-Side)
+                </button>
+
+
+                <button type="submit" class="button åben-side-med-input" form="skab">
+                    Skab ønskesedlen<br>(åbner Konto-Side)
+                </button>
+            </section>
+        </form>
+    </form>
+
+</div>
+</body>
+</html>

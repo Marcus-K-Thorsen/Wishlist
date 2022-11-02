@@ -14,12 +14,17 @@ public class IndexController {
 
   @GetMapping(value = {"/login"})
   public String login() {
-    return "login";
+    return "redirect:/user_homepage";
   }
 
   @GetMapping(value = {"/signup"})
   public String createUser() {
-    return "create_user";
+    return "redirect:/showNewUserForm";
   }
+
+/*  @GetMapping(value = {"/signup"})
+  public String createUser() {
+    return "create_user";
+  }*/
 
 }

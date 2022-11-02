@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Ønskeliste Lav Ny Konto</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="sky-background">
+
+    <section class="side_banner">
+        Lav-Konto-Side Banner
+    </section>
+
+    <section class="side_info">
+        <p>
+            Noget introducerende tekst omkring denne side: Lav en ny konto til siden til Digital Ønskeliste Siden, som
+            dette er stedet man skaber en ny konto på siden.
+        </p>
+        <p>
+            Informativ tekst omkring hvad man kan gøre på lav-konto-siden: Indtast dine informationer (brugernavn/email
+            "ikke bestemt endnu" et kodeord til din bruger). Noget omkring de restriktioner der er for brugerens input,
+            som at det skal være et brugernavn der ikke allerede eksisterer, der skal være et kodeord, som man indtaster
+            to gange og skal være ens. Når input er indtastet tryk på om du vil skabe en ny bruger ud fra de
+            informationer/input som er indtastet eller om du vil gå tilbage til forsiden:
+        </p>
+    </section>
+
+
+    <div class="container">
+    <hr>
+    <h2>Save User</h2>
+
+    <form action="#" th:action="@{/saveUser}" th:object="${user}" method="POST">
+
+        <input type="text" th:field="*{email}" placeholder="Email/Username" class="form-control mb-4 col-4">
+
+
+        <input type="text" th:field="*{password}" placeholder="Password" class="form-control mb-4 col-4">
+
+
+        <input type="text" th:field="*{givenName}" placeholder="Given name" class="form-control mb-4 col-4">
+
+
+        <input type="text" th:field="*{lastName}" placeholder="Last name" class="form-control mb-4 col-4">
+
+
+        <button type="submit" class="btn btn-info col-2"> Save User</button>
+    </form>
+
+    <hr>
+
+    <a th:href="@{/}"> Back to Employee List</a>
+    </div>
+
+</div>
+</body>
+</html>

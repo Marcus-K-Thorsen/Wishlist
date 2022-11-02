@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Ønskeliste En Logget Ind Konto Ser En Ønskeseddel</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="sky-background">
+
+    <section class="side_banner relative">
+        Se-Ønskeseddel-Side Banner
+        <form method="POST" action="/fortryd-ønskeseddel">
+            <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn()}">
+            <button type="submit" class="button åben-side corner-button">
+                Fortryd ønskeseddel<br>(åbner Konto-Side)
+            </button>
+        </form>
+    </section>
+
+    <section class="side_info">
+        <p>
+            Noget introducerende tekst omkring denne side: Dette er her hvor man kan se en ønskeseddel, samt de ønsker
+            der er for den seddel, for en bruger der er logget ind.
+        </p>
+        <p>
+            Informativ tekst omkring hvad man kan gøre på sin se ønskeseddel side: En bruger kan se en ønskeseddel de
+            har skabt og ændre dets titel og beskrivelse. De kan kopiere et link til at dele med andre, så de kan se
+            sedlen, men de kan ikke lave ændringer. Bruger kan tilføje/skabe og fjerne ønsker på sedlen, samt se info om
+            de ønsker der er på sedlen, samt åbne link til butik der har det ønske eller gå tilbage til sin konto:
+        </p>
+    </section>
+
+    <form method="POST" action="/editWishListTitle" id="edit-title">
+        <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn}" form="edit-title">
+        <input type="hidden" name="wishlistId" th:value="${wishlist.getId}" form="edit-title">
+    </form>
+    <form method="POST" action="/editWishListDesc" id="edit-desc">
+        <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn}" form="edit-desc">
+        <input type="hidden" name="wishlistId" th:value="${wishlist.getId}" form="edit-desc">
+    </form>
+    <form method="POST" action="/removeWish" id="rem-wish">
+        <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn}" form="rem-wish">
+        <input type="hidden" name="wishlistId" th:value="${wishlist.getId}" form="rem-wish">
+    </form>
+    <form method="POST" action="/createWish" id="create-wish">
+        <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn}" form="create-wish">
+        <input type="hidden" name="wishlistId" th:value="${wishlist.getId}" form="create-wish">
+    </form>
+
+    <section class="edit-felter">
+
+        <div class="edit-felt">
+            <section class="grid-box">
+                <label>
+                    <input type="text" name="wishlistTitle" th:placeholder="${wishlist.getTitle()}" class="edit-input"
+                           form="edit-title" maxlength="50" required>
+                </label>
+            </section>
+
+            <section class="grid-box">
+                <button type="submit" class="edit-button åben-side-med-input" form="edit-title">
+                    Ændrer Titlen
+                </button>
+            </section>
+        </div>
+
+        <div class="edit-felt">
+            <section class="grid-box">
+                <label>
+                    <textarea rows="5" cols="30" maxlength="200" name="wishlistDesc"
+                              th:placeholder="${wishlist.getDescription()}" class="big-edit-input edit-input"
+                              form="edit-desc" required></textarea>
+                </label>
+            </section>
+
+            <section class="grid-box">
+                <button type="submit" class="edit-button åben-side-med-input" form="edit-desc">
+                    Ændrer Beskrivelsen
+                </button>
+            </section>
+        </div>
+    </section>
+
+    <article class="share-wishlist" th:text="${wishlist.getShareLink()}">
+        http://localhost:8080/share?list_id=(id'et for denne seddel) (kommer wishlist objektet)
+    </article>
+
+    <section class="wishes">
+
+        <div class="wish">
+            <article class="wish-data wish-box" th:text="${wishlist.getWishes(0).getTitle()}">
+                "Titlen på ønsket" (fra det første wish objekt)
+            </article>
+
+            <article class="wish-data wish-box">
+                Prisen for det ønskede produkt: <span class="inline"
+                                                      th:text="${wishlist.getWishes(0).getPriceAsText()}"></span> 49.95
+                kr. (fra det første wish objekt)
+            </article>
+
+            <article class="wish-data wish-box">
+                Beskrivelsen for dette ønske: <span class="inline"
+                                                    th:text="${wishlist.getWishes(0).getDescription()}"></span> blah
+                blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+                blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+                (kommer fra det første wish objekt)
+            </article>
+
+            <a class="wish-box åben-side wish-button" th:href="${wishlist.getWishes(0).getLink()}" target="_blank">
+                Link til det ønskede produkt (kommer fra det første wish objekt og en klasse der laver HTML kode hvis
+                der er et link)
+            </a>
+
+            <button type="submit" form="rem-wish" class="wish-box åben-side-med-input wish-button">
+                <input type="hidden" name="wishId" th:value="${wishlist.getWishes(0).getId}" form="rem-wish">
+                Slet dette ønske fra ønskelisten
+            </button>
+        </div>
+
+        <div class="wish">
+            <article class="wish-data wish-box" th:text="${wishlist.getWishes(1).getTitle()}">
+                "Titlen på ønsket" (fra det andet wish objekt)
+            </article>
+
+            <article class="wish-data wish-box">
+                Prisen for det ønskede produkt: <span class="inline"
+                                                      th:text="${wishlist.getWishes(1).getPriceAsText()}"></span> Ingen
+                pris er blevet angivet. (fra det andet wish objekt)
+            </article>
+
+            <article class="wish-data wish-box">
+                Beskrivelsen for dette ønske: <span class="inline"
+                                                    th:text="${wishlist.getWishes(1).getDescription()}"></span> Ingen
+                beskrivelse er blevet angivet. (kommer fra det andet wish objekt)
+            </article>
+
+            <a class="wish-box åben-side wish-button" th:href="${wishlist.getWishes(1).getLink()}" target="_blank">
+                Link til det ønskede produkt (komer fra det andet wish objekt og en klasse der laver HTML kode hvis der
+                er et link)
+            </a>
+
+            <button type="submit" form="rem-wish" class="wish-box åben-side-med-input wish-button">
+                <input type="hidden" name="wishId" th:value="${wishlist.getWishes(1).getId}" form="rem-wish">
+                Slet dette ønske fra ønskelisten
+            </button>
+        </div>
+
+        <div class="wish">
+            <article class="wish-data wish-box" th:text="${wishlist.getWishes(2).getTitle()}">
+                "Titlen på ønsket" (fra det tredje wish objekt)
+            </article>
+
+            <article class="wish-data wish-box">
+                Prisen for det ønskede produkt: <span class="inline"
+                                                      th:text="${wishlist.getWishes(2).getPriceAsText()}"></span> 49.95
+                kr. (fra det tredje wish objekt)
+            </article>
+
+            <article class="wish-data wish-box">
+                Beskrivelsen for dette ønske: <span class="inline"
+                                                    th:text="${wishlist.getWishes(2).getDescription()}"></span> blah
+                blah blah blah blah blah blah (kommer fra det tredje wish objekt)
+            </article>
+
+            <article class="wish-data wish-box">
+                Intet link er blevet angivet (kommer fra en klasse der laver HTML kode hvis intet link er angivet)
+            </article>
+
+            <button type="submit" form="rem-wish" class="wish-box åben-side-med-input wish-button">
+                <input type="hidden" name="wishId" th:value="${wishlist.getWishes(2).getId}" form="rem-wish">
+                Slet dette ønske fra ønskelisten
+            </button>
+        </div>
+
+        <div class="no-wish">
+            <button type="submit" form="create-wish" class="wish-box wish-button åben-side">
+                Tryk her for at skabbe et nyt ønske til denne seddel.
+                <img src="https://cdn1.iconfinder.com/data/icons/e-commerce-261/48/wish_list-512.png" id="plus-icon"
+                     alt="">
+            </button>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/Wishlist")
+@RequestMapping
 public class WishlistController {
 
   private final WishlistServiceImpl wishlistService;
@@ -22,10 +22,10 @@ public class WishlistController {
   }
 
   // display list of wishlists
-  @GetMapping("/")
+  @GetMapping("/user_homepage")
   public String viewHomePage(Model model) {
     model.addAttribute("listWishlists", wishlistService.getAllWishlists());
-    return "index";
+    return "/test/view_user";
   }
 
   @GetMapping("/showNewWishlistForm")
@@ -33,7 +33,7 @@ public class WishlistController {
     // create model attribute to bind form data
     Wishlist wishlist = new Wishlist();
     model.addAttribute("wishlist", wishlist);
-    return "new_wishlist";
+    return "/test/new_wishlist";
   }
 
   @PostMapping("/saveWishlist")
@@ -51,7 +51,7 @@ public class WishlistController {
 
     // set wishlist as a model attribute to pre-populate the form
     model.addAttribute("wishlist", wishlist);
-    return "update_wishlist";
+    return "/test/update_wishlist";
   }
 
   @GetMapping("/deleteWishlist/{id}")

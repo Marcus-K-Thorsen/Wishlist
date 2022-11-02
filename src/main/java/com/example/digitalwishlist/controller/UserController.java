@@ -6,10 +6,7 @@ import com.example.digitalwishlist.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Objects;
@@ -38,10 +35,10 @@ public class UserController {
     // create model attribute to bind form data
     User user = new User();
     model.addAttribute("user", user);
-    return "new_user";
+    return "/test/new_user";
   }
 
-  @PostMapping("/saveUser")
+/*  @PostMapping("/saveUser")
   public String saveUser(WebRequest req) {
     if (Objects.equals(req.getParameter("kodeord1"), req.getParameter("kodeord2"))) {
       // save user to database
@@ -49,17 +46,17 @@ public class UserController {
       userService.saveUser(user);
       return "redirect:/";
     } else return "redirect:/signup";
-  }
+  }*/
 
   //TODO: brug thymeleaf i stedet for WebRequest
-/*  @PostMapping("/saveUser")
+  @PostMapping("/saveUser")
   public String saveUser(@ModelAttribute("user") User user) {
     // save user to database
     userService.saveUser(user);
     return "redirect:/";
-  }*/
+  }
 
-  @GetMapping("/showFormForUpdate/{userId}")
+/*  @GetMapping("/showFormForUpdate/{userId}")
   public String showFormForUpdate(@PathVariable(value = "userId") String id, Model model) {
 
     // get user from the service
@@ -68,7 +65,7 @@ public class UserController {
     // set user as a model attribute to pre-populate the form
     model.addAttribute("user", user);
     return "update_user";
-  }
+  }*/
 
   @GetMapping("/deleteUser/{userId}")
   public String deleteUser(@PathVariable(value = "userId") String id) {
