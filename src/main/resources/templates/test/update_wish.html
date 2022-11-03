@@ -9,9 +9,7 @@
 </head>
 
 <body>
-<div class="container">
 
-    <hr>
     <h2>Update Wish</h2>
 
     <form action="#" th:action="@{/saveWishAfterUpdate}" th:object="${wish}" method="POST">
@@ -19,21 +17,18 @@
         <!-- Add hidden form field to handle update -->
         <!--    <input type="hidden" th:field="*{id}" />-->
 
-        <input type="text" th:field="*{title}" placeholder="Title" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{title}" placeholder="Title" class="input-felt" maxlength="50" required>
 
-        <input type="text" th:field="*{descr}" placeholder="Description" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{descr}" placeholder="Description" class="input-felt" maxlength="200">
 
-        <input type="text" th:field="*{price}" placeholder="Description" class="form-control mb-4 col-4">
+        <input type="number" th:field="*{price}" placeholder="Price" class="input-felt" maxlength="50">
 
-        <input type="text" th:field="*{link}" placeholder="Description" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{link}" placeholder="Link" class="input-felt" maxlength="200">
 
         <button type="submit" class="btn btn-info col-2"> Update Wish</button>
     </form>
 
-    <hr>
-
     <a th:href="@{/wishlist_homepage}"> Back to Wishlists</a>
-</div>
 </body>
 
 </html>

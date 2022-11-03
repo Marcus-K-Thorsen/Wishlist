@@ -28,32 +28,26 @@
         </p>
     </section>
 
-
-    <div class="container">
-    <hr>
     <h2>Save User</h2>
 
     <form action="#" th:action="@{/saveUser}" th:object="${user}" method="POST">
 
-        <input type="text" th:field="*{email}" placeholder="Email/Username" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{email}" placeholder="Email/Username" class="input-felt" maxlength="50" required>
 
 
-        <input type="text" th:field="*{password}" placeholder="Password" class="form-control mb-4 col-4">
+        <input type="password" th:field="*{password}" placeholder="Password" class="input-felt" maxlength="50" required>
 
 
-        <input type="text" th:field="*{givenName}" placeholder="Given name" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{givenName}" placeholder="Given name" class="input-felt" maxlength="50" required>
 
 
-        <input type="text" th:field="*{lastName}" placeholder="Last name" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{lastName}" placeholder="Last name" class="input-felt" maxlength="50" required>
 
 
         <button type="submit" class="btn btn-info col-2"> Save User</button>
     </form>
 
-    <hr>
-
     <a th:href="@{/}"> Back to Homepage</a>
-    </div>
 
 </body>
 </html>
