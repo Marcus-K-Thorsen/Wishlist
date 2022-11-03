@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 public class Wish {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-/*  @Column(unique = true)*/
+  /*  @Column(unique = true)*/
   private long id;
   @ManyToOne
   @JoinColumn(name = "id_WL")
