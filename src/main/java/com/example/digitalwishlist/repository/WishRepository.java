@@ -1,8 +1,7 @@
 package com.example.digitalwishlist.repository;
 
-import com.example.digitalwishlist.model.User;
-import com.example.digitalwishlist.model.Wish;
-import com.example.digitalwishlist.model.Wishlist;
+import com.example.digitalwishlist.entity.Wish;
+import com.example.digitalwishlist.entity.Wishlist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

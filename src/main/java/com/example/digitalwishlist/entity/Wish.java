@@ -1,56 +1,48 @@
-package com.example.digitalwishlist.model;
+package com.example.digitalwishlist.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "wishlists")
-public class Wishlist implements Serializable {
+@Table(name = "wishes")
+public class Wish {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
 /*  @Column(unique = true)*/
   private long id;
   @ManyToOne
-  @JoinColumn(name = "email")
-  private User user;
+  @JoinColumn(name = "id_WL")
+  private Wishlist wishlist;
   @NotBlank(message = "Title is mandatory")
   private String title;
-
   private String descr;
-  @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<Wish> wishes = new ArrayList<>();
+  private double price;
+  private String link;
 
-  public Wishlist(String title, String descr) {
+  public Wish(String title, String descr, double price, String link) {
     this.title = title;
     this.descr = descr;
+    this.price = price;
+    this.link = link;
   }
 
-  public Wishlist(long id, String title, String descr) {
-    this.id = id;
-    this.title = title;
-    this.descr = descr;
-  }
-
-  public Wishlist() {
+  public Wish() {
   }
 
   public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 
-  public User getUser() {
-    return user;
+  public Wishlist getWishlist() {
+    return wishlist;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public void setWishlist(Wishlist wishlist) {
+    this.wishlist = wishlist;
   }
 
   public String getTitle() {
@@ -69,13 +61,30 @@ public class Wishlist implements Serializable {
     this.descr = descr;
   }
 
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
   @Override
   public String toString() {
-    return "Wishlist{" +
+    return "Wish{" +
         "id=" + id +
-        ", user=" + user +
         ", title='" + title + '\'' +
         ", descr='" + descr + '\'' +
+        ", price=" + price +
+        ", link='" + link + '\'' +
         '}';
   }
 }

@@ -1,8 +1,8 @@
 package com.example.digitalwishlist;
 
-import com.example.digitalwishlist.model.User;
-import com.example.digitalwishlist.model.Wish;
-import com.example.digitalwishlist.model.Wishlist;
+import com.example.digitalwishlist.entity.User;
+import com.example.digitalwishlist.entity.Wish;
+import com.example.digitalwishlist.entity.Wishlist;
 import com.example.digitalwishlist.service.UserServiceImpl;
 import com.example.digitalwishlist.service.WishServiceImpl;
 import com.example.digitalwishlist.service.WishlistServiceImpl;

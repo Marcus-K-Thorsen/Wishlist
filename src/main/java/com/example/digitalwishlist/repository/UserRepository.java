@@ -1,6 +1,6 @@
 package com.example.digitalwishlist.repository;
 
-import com.example.digitalwishlist.model.User;
+import com.example.digitalwishlist.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

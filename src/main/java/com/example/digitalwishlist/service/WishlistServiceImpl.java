@@ -1,13 +1,12 @@
 package com.example.digitalwishlist.service;
 
-import com.example.digitalwishlist.model.User;
-import com.example.digitalwishlist.model.Wishlist;
+import com.example.digitalwishlist.entity.User;
+import com.example.digitalwishlist.entity.Wishlist;
 import com.example.digitalwishlist.repository.UserRepository;
 import com.example.digitalwishlist.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

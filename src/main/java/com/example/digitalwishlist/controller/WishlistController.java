@@ -1,7 +1,7 @@
 package com.example.digitalwishlist.controller;
 
 
-import com.example.digitalwishlist.model.Wishlist;
+import com.example.digitalwishlist.entity.Wishlist;
 import com.example.digitalwishlist.service.UserServiceImpl;
 import com.example.digitalwishlist.service.WishlistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
