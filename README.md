@@ -6,8 +6,8 @@ Databasen ligger ikke i cloud, men lokalt, og tilgås vha. application.propertie
 
 Der skal blot ændres i disse to rækker:
 
-spring.datasource.username={myUsername}
-spring.datasource.password={myPassword}
+        spring.datasource.username={myUsername}
+        spring.datasource.password={myPassword}
 
 Databasen oprettes automatisk når applikation køres.
 
