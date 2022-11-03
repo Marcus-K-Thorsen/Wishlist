@@ -2,7 +2,7 @@
 Mini Projekt Digital Ønskeseddel 2. semester. Skab en webside der kan gemme brugeres ønsker på en liste der kan deles med andre til at se disse ønsker
 
 
-Databasen ligger ikke i cloud, men lokalt, og tilgås vha. application.properties under resources.
+MySql Databasen ligger ikke i cloud, men lokalt, og tilgås vha. application.properties under resources.
 
 Der skal blot ændres i disse to rækker:
 
