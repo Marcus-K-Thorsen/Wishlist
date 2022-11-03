@@ -1,9 +1,11 @@
 package com.example.digitalwishlist.service;
 
 import com.example.digitalwishlist.model.Wish;
+import com.example.digitalwishlist.model.Wishlist;
 import com.example.digitalwishlist.repository.WishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,6 +49,31 @@ public class WishServiceImpl implements WishService {
       throw new RuntimeException("Wish not found for id :: " + id);
     }
     return Optional.of(wish);
+  }
+
+  @Override
+  public Wish createWishFromWebReq(WebRequest webRequest, Wishlist wishlist) {
+    String wishTitle = webRequest.getParameter("wishTitle");
+    String wishPrice = webRequest.getParameter("wishPrice");
+    boolean isTherePrice = (wishPrice != null && !wishPrice.isBlank());
+    String wishDescr = webRequest.getParameter("wishDescr");
+    String wishLink = webRequest.getParameter("wishLink");
+    boolean isThereLink = (wishLink != null && !wishLink.isBlank());
+
+    double wishPriceNum;
+
+    if (isThereLink && isTherePrice) {
+      wishPriceNum = Double.parseDouble(wishPrice);
+      return new Wish(wishlist, wishTitle, wishDescr, wishPriceNum, wishLink);
+    }
+    if (isTherePrice) {
+      wishPriceNum = Double.parseDouble(wishPrice);
+      return new Wish(wishlist, wishTitle, wishDescr, wishPriceNum);
+    }
+    if (isThereLink) {
+      return new Wish(wishlist, wishTitle, wishDescr, wishLink);
+    }
+    return new Wish(wishlist, wishTitle, wishDescr);
   }
 
 /*  @Transactional

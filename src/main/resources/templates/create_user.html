@@ -26,8 +26,12 @@
         </p>
     </section>
 
+    <div th:if="${message}" class="side_info" th:text="${message}">
 
-    <form method="POST" action="/saveUser" class="input-felter">
+    </div>
+
+
+    <form method="POST" action="/save-user" class="input-felter">
 
         <label>
             <input type="text" name="nytbrugernavn" placeholder="Indtast Brugernavn/Email..." class="input-felt"
@@ -35,12 +39,12 @@
         </label>
 
         <label>
-            <input type="text" name="fornavn" placeholder="Indtast Dit Fornavn..." class="input-felt" maxlength="50">
+            <input type="text" name="fornavn" placeholder="Indtast Dit Fornavn..." class="input-felt" maxlength="50" required>
         </label>
 
         <label>
             <input type="text" name="efternavn" placeholder="Indtast Dit Efternavn..." class="input-felt"
-                   maxlength="50">
+                   maxlength="50" required>
         </label>
 
         <label>

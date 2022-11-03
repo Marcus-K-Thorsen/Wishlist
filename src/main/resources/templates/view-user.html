@@ -10,7 +10,7 @@
 
     <section class="side_banner relative">
         Konto-Side Banner
-        <a href="/login-side" class="button åben-side corner-button">
+        <a href="/login" class="button åben-side corner-button">
             Log ud<br>(åbner Login-Side)
         </a>
     </section>
@@ -19,7 +19,7 @@
         <p class="inline">
             Noget introducerende tekst omkring denne side: Dette er her hvor man er logget ind som en bruger. Du er nu
             logget ind som:
-        <div class="inline" th:text="${user.getName()}">"Fornavn Efternavn (overført bruger objekt)"</div>
+        <div class="inline" th:text="${user.getName()}"></div>
         <p>
             Informativ tekst omkring hvad man kan gøre på sin konto side: Her kan en bruger lave en ny ønskeliste, se
             allerede oprettede ønskesedler, skabe nye ønskesedler, slette en seddel eller gå tilbage til forsiden ved at
@@ -27,7 +27,67 @@
         </p>
     </section>
 
-    <section class="wish-lists" th:utext="${HTMLCode}">
+    <form method="POST" action="/create-wishlist" id="create-wishlist">
+        <label>
+            <input type="hidden" name="userId" th:value="${user.getEmail()}" form="create-wishlist">
+        </label>
+    </form>
+
+
+
+    <div th:if="${message}" class="side_info" th:text="${message}">
+
+    </div>
+
+    <section class="wish-lists">
+
+        <div class="wish-list" th:each="wishlist: ${wishlists}">
+
+
+            <div class="wish-icons grid-child">
+
+                <form method="POST" action="/see-wishlist">
+                    <label>
+                        <input type="hidden" name="userId" th:value="${user.getEmail()}">
+                    </label>
+                    <label>
+                        <input type="hidden" name="wishlistId" th:value="${wishlist.id}">
+                    </label>
+                    <button type="submit" class="small-button åben-side-med-input">
+                        Se Ønskeseddel
+                    </button>
+                </form>
+
+                <form method="POST" action="/delete-wishlist">
+                    <label>
+                        <input type="hidden" name="userId" th:value="${user.getEmail()}">
+                    </label>
+                    <label>
+                        <input type="hidden" name="wishlistId" th:value="${wishlist.id}">
+                    </label>
+                    <button type="submit" class="small-button åben-side-med-input">
+                        Slet Ønskeseddel
+                    </button>
+                </form>
+
+
+            </div>
+                <article class="grid-child">
+                  Titel:
+                  <div class="inline" th:text="${wishlist.title}"></div>
+                </article>
+        </div>
+
+        <div class="wish-list">
+            <div class="wish-icons grid-child">
+                <button type="submit" class="small-button åben-side-med-input" form="create-wishlist">
+                    Skab Ønskeseddel
+                </button>
+            </div>
+            <article class="grid-child">
+                Ingen ønskeseddel er blevet skabt her endnu.
+            </article>
+        </div>
 
     </section>
 

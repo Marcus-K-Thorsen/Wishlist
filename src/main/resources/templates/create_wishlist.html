@@ -25,34 +25,39 @@
         </p>
     </section>
 
-    <form method="POST" action="/skab-ønskeseddel" class="input-felter" id="skab">
+    <form method="POST" action="/regret-wishlist" id="fortryd"></form>
+
+    <form method="POST" action="/wishlist-created" class="input-felter" id="skab">
 
         <label>
-            <input type="text" name="ønskeseddeltitel" placeholder="Indtast titlen på ønskesedlen..." class="input-felt"
+            <input type="text" name="wishlistTitle" placeholder="Indtast titlen på ønskesedlen..." class="input-felt"
                    form="skab" maxlength="50" required>
         </label>
 
         <label>
-            <textarea rows="5" cols="30" maxlength="200" name="ønskeseddelbeskrivelse"
+            <textarea rows="5" cols="30" maxlength="200" name="wishlistDescr"
                       placeholder="Indtast beskrivelsen på ønskeseddel..." class="big-input-felt input-felt"
-                      form="skab"></textarea>
+                      form="skab" required></textarea>
         </label>
 
-        <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn()}" form="skab">
+        <label>
+            <input type="hidden" name="userId" th:value="${user.getEmail()}" form="skab">
+        </label>
+        <label>
+            <input type="hidden" name="userId" th:value="${user.getEmail()}" form="fortryd">
+        </label>
 
-        <form method="POST" action="/fortryd-ønskeseddel" id="fortryd">
-            <section class="choices">
-                <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn()}" form="fortryd">
+        <section class="choices">
+
                 <button type="submit" class="button åben-side" form="fortryd">
                     Fortryd ønskeseddel<br>(åbner Konto-Side)
                 </button>
 
-
                 <button type="submit" class="button åben-side-med-input" form="skab">
                     Skab ønskesedlen<br>(åbner Konto-Side)
                 </button>
-            </section>
-        </form>
+
+        </section>
     </form>
 
 </div>

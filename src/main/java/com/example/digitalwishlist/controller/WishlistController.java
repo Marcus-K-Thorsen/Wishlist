@@ -2,6 +2,7 @@ package com.example.digitalwishlist.controller;
 
 
 import com.example.digitalwishlist.model.Wishlist;
+import com.example.digitalwishlist.service.UserServiceImpl;
 import com.example.digitalwishlist.service.WishlistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,22 @@ import java.util.Optional;
 public class WishlistController {
 
   private final WishlistServiceImpl wishlistService;
+  private final UserServiceImpl userService;
 
   @Autowired
-  public WishlistController(WishlistServiceImpl wishlistService) {
+  public WishlistController(WishlistServiceImpl wishlistService, UserServiceImpl userService) {
     this.wishlistService = wishlistService;
+    this.userService = userService;
   }
+
+
+
+
+
+
+
+
+
 
   // display list of wishlists
   @GetMapping("/user_homepage")

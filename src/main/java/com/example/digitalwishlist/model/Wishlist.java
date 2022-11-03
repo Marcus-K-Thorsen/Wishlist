@@ -28,6 +28,12 @@ public class Wishlist implements Serializable {
     this.descr = descr;
   }
 
+  public Wishlist(User user, String title, String descr) {
+    this.user = user;
+    this.title = title;
+    this.descr = descr;
+  }
+
   public Wishlist() {
   }
 
@@ -89,6 +95,36 @@ public class Wishlist implements Serializable {
 
   public Wish getWish(int index) {
     return wishes.get(index);
+  }
+
+  public Wish getWish(String wishId) {
+    for (Wish wish: wishes) {
+      String thisWishId = String.valueOf(wish.getId());
+      if (thisWishId.equals(wishId)) {
+        return wish;
+      }
+    }
+    return null;
+  }
+
+
+
+  public String getSharedLink() {
+    return "http://localhost:8080/share-wishlist?wishlistId=" + getId();
+  }
+
+  public void removeDuplicatedWishes(long outsideWishId) {
+    int counter = 0;
+    for (int i = wishes.size() - 1; i >= 0; i--) {
+      Wish wish = wishes.get(i);
+      long wishId = wish.getId();
+      if (wishId == outsideWishId && counter >= 1) {
+        wishes.remove(i);
+      }
+        if (wishId == outsideWishId) {
+          counter++;
+      }
+    }
   }
 
 }

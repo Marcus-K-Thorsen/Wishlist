@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -76,6 +77,34 @@ public class User {
 
   public void setWishlists(List<Wishlist> wishlists) {
     this.wishlists = wishlists;
+  }
+
+  public void removeWishlist(Wishlist wishlist) {
+    this.wishlists.remove(wishlist);
+  }
+
+  public void removeWishlist(Long wishlistId) {
+    for (Wishlist wishlist : wishlists) {
+      Long userWishlistId = wishlist.getId();
+      if (Objects.equals(wishlistId, userWishlistId)) {
+        removeWishlist(wishlist);
+      }
+    }
+  }
+
+  public Wishlist getWishlist(String wishlistId) throws RuntimeException {
+    Long longWishlistId = Long.parseLong(wishlistId);
+    return getWishlist(longWishlistId);
+  }
+
+  public Wishlist getWishlist(Long wishlistId) throws RuntimeException {
+    for (Wishlist wishlist : wishlists) {
+      Long userWishlistId = wishlist.getId();
+      if (Objects.equals(wishlistId, userWishlistId)) {
+        return wishlist;
+      }
+    }
+    throw new RuntimeException("No wish with the ID: " + wishlistId);
   }
 
   @Override

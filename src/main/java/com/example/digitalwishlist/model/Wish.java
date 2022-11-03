@@ -26,6 +26,34 @@ public class Wish {
     this.link = link;
   }
 
+  public Wish(Wishlist wishlist, String title, String descr, double price, String link) {
+    this.wishlist = wishlist;
+    this.title = title;
+    this.descr = descr;
+    this.price = price;
+    this.link = link;
+  }
+
+  public Wish(Wishlist wishlist, String title, String descr, String link) {
+    this.wishlist = wishlist;
+    this.title = title;
+    this.descr = descr;
+    this.link = link;
+  }
+
+  public Wish(Wishlist wishlist, String title, String descr, double price) {
+    this.wishlist = wishlist;
+    this.title = title;
+    this.descr = descr;
+    this.price = price;
+  }
+
+  public Wish(Wishlist wishlist, String title, String descr) {
+    this.wishlist = wishlist;
+    this.title = title;
+    this.descr = descr;
+  }
+
   public Wish() {
   }
 
@@ -101,7 +129,7 @@ public class Wish {
     if (descr == null || descr.isBlank()) {
       return "Der er ikke blevet angivet en beskrivelse.";
     }
-    return descr + '.';
+    return descr;
   }
 
   public String displayPrice() {
@@ -109,5 +137,16 @@ public class Wish {
       return "Ingen pris er blevet angivet.";
     }
     return price + " kr.";
+  }
+
+  public boolean isThereLink () {
+    if (link == null || link.isBlank()) {
+      return false;
+    }
+    return true;
+  }
+
+  public boolean isThereNoLink () {
+    return !isThereLink();
   }
 }

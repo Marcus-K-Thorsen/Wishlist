@@ -1,6 +1,7 @@
 package com.example.digitalwishlist.service;
 
 import com.example.digitalwishlist.model.User;
+import com.example.digitalwishlist.model.Wish;
 import com.example.digitalwishlist.model.Wishlist;
 import com.example.digitalwishlist.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,10 +64,37 @@ public class WishlistServiceImpl implements WishlistService {
         Wishlist wishlist = unsortedList.get(i);
         sortedList.add(wishlist);
       }
-      return sortedList;
     }
+    return sortedList;
+  }
 
-    return null;
+  @Override
+  public List<Wishlist> prepareUserWishlists(String userId, List<Wish> allWishes) {
+    List<Wishlist> userWishlists = new ArrayList<>();
+    List<Wishlist> allWishlists = getAllWishlists();
+
+    for (int i = 0; i < allWishlists.size(); i++) {
+
+      Wishlist wishlistToAdd = allWishlists.get(i);
+      String wishlistForeignKey = wishlistToAdd.getUser().getEmail();
+
+
+      if (wishlistForeignKey.equals(userId)) {
+        userWishlists.add(wishlistToAdd);
+        long addedWishlistId = wishlistToAdd.getId();
+
+        for (Wish wishFromDatabase : allWishes) {
+          long databaseWishForeignKey = wishFromDatabase.getWishlist().getId();
+
+          if (databaseWishForeignKey == addedWishlistId) {
+            long databaseWishId = wishFromDatabase.getId();
+            wishlistToAdd.setWish(wishFromDatabase);
+            wishlistToAdd.removeDuplicatedWishes(databaseWishId);
+          }
+        }
+      }
+    }
+    return userWishlists;
   }
 
 /*  @Transactional

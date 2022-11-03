@@ -16,8 +16,8 @@
         <p>
             Noget introducerende tekst omkring denne side: Skab et ønske for en ønskeseddel på Digital Ønskeliste Siden,
             som dette er stedet man skaber sig et ønske for en ønskeseddel til en konto der allerede er blevet logget
-            ind på. Brugeren (brugerens navn) <span class="inline" th:text="${user.getName()}"></span> er ved at lave et
-            nyt ønske for ønskesedlen (sedlens titel)<span class="inline" th:text="${wishlist.getTitle()}"></span>.
+            ind på. Brugeren: <span class="inline" th:text="${user.getName()}"></span> er ved at lave et
+            nyt ønske for ønskesedlen <span class="inline" th:text="${wishlist.getTitle()}"></span>.
         </p>
 
         <p>
@@ -28,47 +28,52 @@
         </p>
     </section>
 
-    <form method="POST" action="/skab-ønske" class="input-felter" id="skab">
+    <form method="POST" action="/regret-wish" id="regret"></form>
 
+    <form method="POST" action="/wish-created" id="create"></form>
+
+    <section class="input-felter">
         <label>
-            <input type="text" name="ønsketitel" placeholder="Indtast titlen på ønsket..." class="input-felt"
-                   form="skab" maxlength="50" required>
+            <input type="text" name="wishTitle" placeholder="Indtast titlen på ønsket..." class="input-felt"
+                   form="create" maxlength="50" required>
         </label>
 
         <label>
-            <input type="number" step="0.01" pattern="[0-9]{0,11}" max="99999999999" name="ønskeprisen"
-                   placeholder="Indtast en pris for ønsket..." class="input-felt number-felt" form="skab">
+            <input type="number" step="0.01" pattern="[0-9]{0,11}" max="99999999999" name="wishPrice"
+                   placeholder="Indtast en pris for ønsket..." class="input-felt number-felt" form="create">
         </label>
 
         <label>
-            <textarea rows="5" cols="30" maxlength="200" name="ønskebeskrivelse"
+            <textarea rows="5" cols="30" maxlength="200" name="wishDescr"
                       placeholder="Indtast beskrivelsen på ønsket..." class="big-input-felt input-felt"
-                      form="skab"></textarea>
+                      form="create" required></textarea>
         </label>
 
         <label>
-            <input type="url" name="ønskelink" placeholder="Indtast et link for hvor man kan finde ønsket..."
-                   class="input-felt" form="skab" maxlength="200">
+            <input type="url" name="wishLink" placeholder="Indtast et link for hvor man kan finde ønsket..."
+                   class="input-felt" form="create" maxlength="200">
         </label>
+    </section>
 
-        <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn()}" form="skab">
-        <input type="hidden" name="wishlistid" th:value="${wishlist.getId()}" form="skab">
+    <label>
+        <input type="hidden" name="userId" th:value="${user.getEmail()}" form="create">
+    </label>
+    <label>
+        <input type="hidden" name="wishlistId" th:value="${wishlist.getId()}" form="create">
+    </label>
 
-        <form method="POST" action="/fortryd-ønske" id="fortryd">
             <section class="choices">
-                <input type="hidden" name="brugernavn" th:value="${user.getBrugernavn()}" form="fortryd">
-                <input type="hidden" name="wishlistid" th:value="${wishlist.getId()}" form="fortryd">
-                <button type="submit" class="button åben-side" form="fortryd">
-                    Fortryd ønske<br>(åbner Se-Ønskeseddel-Side)
+                <input type="hidden" name="userId" th:value="${user.getEmail()}" form="regret">
+                <input type="hidden" name="wishlistId" th:value="${wishlist.getId()}" form="regret">
+                <button type="submit" class="button åben-side" form="regret">
+                    Fortryd ønske.
                 </button>
 
 
-                <button type="submit" class="button åben-side-med-input" form="skab">
-                    Skab ønskesedlen<br>(åbner Konto-Side)
+                <button type="submit" class="button åben-side-med-input" form="create">
+                    Skab ønske
                 </button>
             </section>
-        </form>
-    </form>
 
 </div>
 </body>
