@@ -1,7 +1,6 @@
-package com.example.digitalwishlist.service;
+package com.example.digitalwishlist.model.service;
 
-import com.example.digitalwishlist.model.Wish;
-import com.example.digitalwishlist.model.Wishlist;
+import com.example.digitalwishlist.model.entity.Wish;
 
 import java.util.List;
 import java.util.Optional;

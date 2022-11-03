@@ -1,7 +1,7 @@
-package com.example.digitalwishlist.repository;
+package com.example.digitalwishlist.model.repository;
 
-import com.example.digitalwishlist.model.User;
-import com.example.digitalwishlist.model.Wishlist;
+import com.example.digitalwishlist.model.entity.User;
+import com.example.digitalwishlist.model.entity.Wishlist;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

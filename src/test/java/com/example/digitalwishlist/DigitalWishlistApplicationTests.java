@@ -1,11 +1,11 @@
 package com.example.digitalwishlist;
 
-import com.example.digitalwishlist.model.User;
-import com.example.digitalwishlist.model.Wish;
-import com.example.digitalwishlist.model.Wishlist;
-import com.example.digitalwishlist.service.UserServiceImpl;
-import com.example.digitalwishlist.service.WishServiceImpl;
-import com.example.digitalwishlist.service.WishlistServiceImpl;
+import com.example.digitalwishlist.model.entity.User;
+import com.example.digitalwishlist.model.entity.Wish;
+import com.example.digitalwishlist.model.entity.Wishlist;
+import com.example.digitalwishlist.model.service.UserServiceImpl;
+import com.example.digitalwishlist.model.service.WishServiceImpl;
+import com.example.digitalwishlist.model.service.WishlistServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

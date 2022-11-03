@@ -1,4 +1,4 @@
-package com.example.digitalwishlist.model;
+package com.example.digitalwishlist.model.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

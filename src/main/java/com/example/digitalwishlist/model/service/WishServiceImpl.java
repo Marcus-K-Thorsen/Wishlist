@@ -1,9 +1,9 @@
-package com.example.digitalwishlist.service;
+package com.example.digitalwishlist.model.service;
 
-import com.example.digitalwishlist.model.Wish;
-import com.example.digitalwishlist.model.Wishlist;
-import com.example.digitalwishlist.repository.WishRepository;
-import com.example.digitalwishlist.repository.WishlistRepository;
+import com.example.digitalwishlist.model.entity.Wish;
+import com.example.digitalwishlist.model.entity.Wishlist;
+import com.example.digitalwishlist.model.repository.WishRepository;
+import com.example.digitalwishlist.model.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package com.example.digitalwishlist.service;
+package com.example.digitalwishlist.model.service;
 
-import com.example.digitalwishlist.model.User;
+import com.example.digitalwishlist.model.entity.User;
 
 import java.util.List;
 import java.util.Optional;
